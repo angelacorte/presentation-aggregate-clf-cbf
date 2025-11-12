@@ -1,6 +1,6 @@
-baseURL = "https://angelacorte.github.io/Personalized-Template-Hugo-Reveal-Slides"
+baseURL = "https://angelacorte.github.io/presentation-aggregate-clf-cbf/"
 languageCode = "en-us"
-title = "A Hugo theme for creating Reveal.js presentations"
+title = "Presentation: Aggregate CLF-CBF"
 disableKinds = ["sitemap", "RSS"]
 theme = "reveal-hugo"
 publishDir = "build"

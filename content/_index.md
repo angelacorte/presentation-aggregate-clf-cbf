@@ -1,12 +1,12 @@
 +++
 
-title = "Guide for writing markdown slides"
-description = "A Hugo theme for creating Reveal.js presentations"
+title = "Integration of Control Lyapunov and Control Barrier Functions for Safety-Critical Guarantees in Aggregate Computing"
+description = "Presentation slides for talk on CLF and CBF in Aggregate Computing."
 outputs = ["Reveal"]
 
 +++
 
-# Title
+# Integration of Control Lyapunov and Control Barrier Functions for Safety-Critical Guarantees in Aggregate Computing
 
 [**Angela Cortecchia**](mailto:angela.cortecchia@unibo.it)
 
@@ -50,8 +50,7 @@ outputs = ["Reveal"]
 
 
 <div>
-<small style="text-align: left">
-</br>
+<small style="text-align: left"></br>
 [1] Beal, J., Pianini, D., Viroli, M. "Aggregate Programming for the Internet of Things." 2015.</br>
 </small>
 </div>

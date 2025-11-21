@@ -4,3 +4,5 @@ _gen/
 *.pdf
 *.hprof
 *build.lock
+.idea/
+content/.DS_Store

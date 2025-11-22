@@ -34,6 +34,15 @@ outputs = ["Reveal"]
 
 ![Drones losing connection](./images/dronws_changing-formation.png)
 
+---
+
+### How we would like it to behave
+
+![Drones avoiding obstacle while keeping formation](./images/drones_avoiding_formation.png)
+
+Did not lose formation, neither connection, avoided the obstacle safely and keep going towards the goal.
+
+---
 
 <!--
 In control theory,

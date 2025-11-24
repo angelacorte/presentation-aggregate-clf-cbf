@@ -16,25 +16,25 @@ outputs = ["Reveal"]
 
 ---
 
-### How will the drones avoid the obstacle?
+# How will the drones avoid the obstacle?
 
 ![Drones in formation](./images/drone_formation.svg)
 
 ---
 
-### Current approach
+# Current approach
 
 ![Drones avoiding an obstacle](./images/drones_formation.png)
 
 {{% fragment %}}
 Potential issues:
-- *eventual* consistency 
-- they lost formation;
+- *eventual* consistency;
+- loss of formation.
 {{% /fragment %}}
 
 ---
 
-### Eventual consistency
+# Eventual consistency
 
 How much time will it take to re-form the formation?
 
@@ -42,7 +42,15 @@ How much time will it take to re-form the formation?
 
 ---
 
-### What could happen by losing the formation?
+# Eventual consistency
+
+Potential issues on the transient behavior
+
+![eventual consistency](./images/eventual_consistency.mov)
+
+---
+
+# What could happen by losing the formation?
 
 ![Drones losing connection](./images/dronws_changing-formation.png)
 
@@ -52,13 +60,42 @@ How much time will it take to re-form the formation?
 
 ---
 
-### How we would like it to behave
+# How we would like it to behave
 
 ![Drones avoiding obstacle while keeping formation](./images/drones_avoiding_formation.png)
 
-Did not lose formation, neither connection, avoided the obstacle safely and keep going towards the goal.
+Did not lose formation, neither connection, avoided the obstacle safely and keep going towards their goal.
 
 ---
+
+# Our goal
+
+Ensure guarantees on the transient behavior of the system, not only on the eventual one.
+
+---
+
+# How to achieve it?
+
+In control theory, there exist formal methods to specify both stability and safety conditions:
+- *Control Lyapunov Functions* (CLF) for **fast convergence** and **stability**;
+- *Control Barrier Functions* (CBF) for **safety** in the transient behavior.
+
+---
+
+# Control Lyapunov Functions (CLF)
+
+---
+
+# Control Barrier Functions (CBF)
+
+---
+
+# Research question(s)
+
+---
+
+# How to integrate CLF and CBF in Aggregate Computing?
+
 
 <!--
 In control theory,

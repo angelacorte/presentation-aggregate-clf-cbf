@@ -31,28 +31,32 @@
 <img src="example-background.svg" style="width: 40%">
 </div>
 </section><section>
-<h3 id="how-will-the-drones-avoid-the-obstacle">How will the drones avoid the obstacle?</h3>
+<h1 id="how-will-the-drones-avoid-the-obstacle">How will the drones avoid the obstacle?</h1>
 <p><img src="./images/drone_formation.svg" alt="Drones in formation"></p>
 </section><section>
-<h3 id="current-approach">Current approach</h3>
+<h1 id="current-approach">Current approach</h1>
 <p><img src="./images/drones_formation.png" alt="Drones avoiding an obstacle"></p>
 
 
 <span class="fragment ">
   <p>Potential issues:</p>
 <ul>
-<li><em>eventual</em> consistency</li>
-<li>they lost formation;</li>
+<li><em>eventual</em> consistency;</li>
+<li>loss of formation.</li>
 </ul>
 
 </span>
 
 </section><section>
-<h3 id="eventual-consistency">Eventual consistency</h3>
+<h1 id="eventual-consistency">Eventual consistency</h1>
 <p>How much time will it take to re-form the formation?</p>
 <p><img src="./images/drones_eventual_consistency.png" alt="Drones losing formation"></p>
 </section><section>
-<h3 id="what-could-happen-by-losing-the-formation">What could happen by losing the formation?</h3>
+<h1 id="eventual-consistency-1">Eventual consistency</h1>
+<p>Potential issues on the transient behavior</p>
+<p><img src="./images/eventual_consistency.mov" alt="eventual consistency"></p>
+</section><section>
+<h1 id="what-could-happen-by-losing-the-formation">What could happen by losing the formation?</h1>
 <p><img src="./images/dronws_changing-formation.png" alt="Drones losing connection"></p>
 <ul>
 <li>Lost connection</li>
@@ -60,10 +64,27 @@
 <li>Sub-formations going in different directions</li>
 </ul>
 </section><section>
-<h3 id="how-we-would-like-it-to-behave">How we would like it to behave</h3>
+<h1 id="how-we-would-like-it-to-behave">How we would like it to behave</h1>
 <p><img src="./images/drones_avoiding_formation.png" alt="Drones avoiding obstacle while keeping formation"></p>
-<p>Did not lose formation, neither connection, avoided the obstacle safely and keep going towards the goal.</p>
+<p>Did not lose formation, neither connection, avoided the obstacle safely and keep going towards their goal.</p>
 </section><section>
+<h1 id="our-goal">Our goal</h1>
+<p>Ensure guarantees on the transient behavior of the system, not only on the eventual one.</p>
+</section><section>
+<h1 id="how-to-achieve-it">How to achieve it?</h1>
+<p>In control theory, there exist formal methods to specify both stability and safety conditions:</p>
+<ul>
+<li><em>Control Lyapunov Functions</em> (CLF) for <strong>fast convergence</strong> and <strong>stability</strong>;</li>
+<li><em>Control Barrier Functions</em> (CBF) for <strong>safety</strong> in the transient behavior.</li>
+</ul>
+</section><section>
+<h1 id="control-lyapunov-functions-clf">Control Lyapunov Functions (CLF)</h1>
+</section><section>
+<h1 id="control-barrier-functions-cbf">Control Barrier Functions (CBF)</h1>
+</section><section>
+<h1 id="research-questions">Research question(s)</h1>
+</section><section>
+<h1 id="how-to-integrate-clf-and-cbf-in-aggregate-computing">How to integrate CLF and CBF in Aggregate Computing?</h1>
 <!--
 In control theory,
 there exist formal methods that allow us to specify conditions for both achieving a desired objective (stability) and

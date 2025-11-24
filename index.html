@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/css/custom-theme.min.1158b8c3fcc7845ff101d856cef055e65f883e835845bfb1838443aa482a226c.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
+  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/css/custom-theme.min.ec055a3a78300d64103277494e62208ab2caa86ad289dcbdd88b8790f6e7d69c.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -26,9 +26,9 @@
   
 
     <section><h1 id="integration-of-control-lyapunov-and-control-barrier-functions-for-safety-critical-guarantees-in-aggregate-computing">Integration of Control Lyapunov and Control Barrier Functions for <strong>Safety-Critical Guarantees</strong> in Aggregate Computing</h1>
-<p><a href="mailto:angela.cortecchia@unibo.it"><strong>Angela Cortecchia</strong></a></p>
+<h3 id="angela-cortecchia"><a href="mailto:angela.cortecchia@unibo.it"><strong>Angela Cortecchia</strong></a></h3>
 <div style="text-align: center; width: 100%;">
-<img src="example-background.svg" style="width: 40%">
+<img src="example-background.svg" style="width: 20%">
 </div>
 </section><section>
 <h1 id="how-will-the-drones-avoid-the-obstacle">How will the drones avoid the obstacle?</h1>
@@ -56,8 +56,8 @@
 <p>Potential issues on the transient behavior</p>
 <p><img src="./images/eventual_consistency.mov" alt="eventual consistency"></p>
 </section><section>
-<h1 id="what-could-happen-by-losing-the-formation">What could happen by losing the formation?</h1>
-<p><img src="./images/dronws_changing-formation.png" alt="Drones losing connection"></p>
+<h1 id="possible-consequences-of-losing-the-formation">Possible consequences of losing the formation</h1>
+<p><img src="images/drones_changing-formation.png" alt="Drones losing connection"></p>
 <ul>
 <li>Lost connection</li>
 <li>New leaders</li>
@@ -78,13 +78,65 @@
 <li><em>Control Barrier Functions</em> (CBF) for <strong>safety</strong> in the transient behavior.</li>
 </ul>
 </section><section>
-<h1 id="control-lyapunov-functions-clf">Control Lyapunov Functions (CLF)</h1>
+<h1 id="preliminaries-control-affine-systems">Preliminaries: <strong>Control-Affine Systems</strong></h1>
+<p>A <strong>Control-Affine System</strong> is a <em>dynamical</em> system described by the equation:</p>
+<p>$\dot{x} = f(x) + g(x)u$</p>
+<p>where:</p>
+<ul>
+<li>$x \in \mathbb{R}^n$ is the <em>state vector</em> (position, velocity, etc.),</li>
+<li>$u \in \mathcal{U} \subset \mathbb{R}^m$ is the <em>control input</em> (input, actuator commands, etc.),</li>
+<li>$f: \mathbb{R}^n \to \mathbb{R}^n$ is the <em>drift vector field</em> (the natural evolution of the system without control),</li>
+<li>$g: \mathbb{R}^n \to \mathbb{R}^{n \times m}$ is the <em>control input matrix</em> (how the control input affects the system).</li>
+</ul>
 </section><section>
-<h1 id="control-barrier-functions-cbf">Control Barrier Functions (CBF)</h1>
+<h1 id="preliminaries-lie-derivatives">Preliminaries: <strong>Lie Derivatives</strong></h1>
+<p>The <em>Lie Derivative</em> of a differential scalar function $h: \mathbb{R}^n \to \mathbb{R}$ along a vector field $f: \mathbb{R}^n \to \mathbb{R}^n$ is defined as:</p>
+<p>$L_f h(x) = \frac{\partial h}{\partial x} f(x) = \nabla h(x) \cdot f(x)$</p>
+<p>It represents how $h(x)$ changes in time as the state evolves according to the system dynamics.</p>
+</section><section>
+<h1 id="more-on-lie-derivatives">More on <strong>Lie Derivatives</strong></h1>
+<p>For our Control-Affine System $\dot{x} = f(x) + g(x)u$, the time derivative of $h(x)$ is given by:</p>
+<p>$\dot{h}(x, u) = L_f h(x) + L_g h(x) u$</p>
+<p>where:</p>
+<ul>
+<li>$L_f h(x)$ is the Lie Derivative of $h$ along $f$ (drift term),</li>
+<li>$L_g h(x)$ is the Lie Derivative of $h$ along $g$ (control term),</li>
+<li>$u$ is the control input.</li>
+</ul>
+<p>This notation allows us to express how $h(x)$ evolves over time under the influence of both the system’s natural dynamics and the applied control input.</p>
+</section><section>
+<h1 id="control-lyapunov-functions-clf">Control <strong>Lyapunov</strong> Functions (CLF)</h1>
+<p>A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ is a <em>Control Lyapunov Function</em> for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:</p>
+<ol>
+<li>$V(x) = 0$ for all $x \in \mathcal{X}_d$ and $V(x) &gt; 0$ for all $x \notin \mathcal{X}_d$ (positive definiteness);</li>
+<li>For all $x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ such that:</li>
+</ol>
+<p>$L_f V(x) + L_g V(x) u &lt; 0$</p>
+<p>This condition ensures that the system can be driven towards the equilibrium point $x = 0$. <br>
+The existence of a CLF implies that the system is <em>stabilizable</em>. <br>
+CLFs are used to design feedback control laws that ensure the system’s stability.</p>
+</section><section>
+<h1 id="control-barrier-functions-cbf">Control <strong>Barrier</strong> Functions (CBF)</h1>
 </section><section>
 <h1 id="research-questions">Research question(s)</h1>
+<ul>
+<li>How to integrate CLF and CBF in Aggregate Computing?</li>
+<li>How to specify safety-critical requirements both at the single and the collective level?</li>
+<li>How to enforce safety and stability guarantees during the transient behavior of distributed adaptive systems?</li>
+</ul>
 </section><section>
 <h1 id="how-to-integrate-clf-and-cbf-in-aggregate-computing">How to integrate CLF and CBF in Aggregate Computing?</h1>
+</section><section>
+<h1 id="aggregate-computing--clf--cbf-use-cases">Aggregate Computing + CLF + CBF use cases</h1>
+<p>Formal mechanism to guarantee safety properties, e.g.:</p>
+<ul>
+<li>Obstacle avoidance while maintaining formation;</li>
+<li>Collision avoidance between agents;</li>
+<li>Safe navigation in dynamic environments;</li>
+<li>Staying inside a designated area;</li>
+<li>Maintaining sufficient network connectivity;</li>
+<li>Respecting density limits in regions of interest.</li>
+</ul>
 <!--
 In control theory,
 there exist formal methods that allow us to specify conditions for both achieving a desired objective (stability) and

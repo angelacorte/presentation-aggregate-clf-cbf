@@ -25,7 +25,7 @@
       <div class="slides">
   
 
-    <section><h1 id="integration-of-control-lyapunov-and-control-barrier-functions-for-safety-critical-guarantees-in-aggregate-computing">Integration of Control Lyapunov and Control Barrier Functions for Safety-Critical Guarantees in Aggregate Computing</h1>
+    <section><h1 id="integration-of-control-lyapunov-and-control-barrier-functions-for-safety-critical-guarantees-in-aggregate-computing">Integration of Control Lyapunov and Control Barrier Functions for <strong>Safety-Critical Guarantees</strong> in Aggregate Computing</h1>
 <p><a href="mailto:angela.cortecchia@unibo.it"><strong>Angela Cortecchia</strong></a></p>
 <div style="text-align: center; width: 100%;">
 <img src="example-background.svg" style="width: 40%">
@@ -34,12 +34,31 @@
 <h3 id="how-will-the-drones-avoid-the-obstacle">How will the drones avoid the obstacle?</h3>
 <p><img src="./images/drone_formation.svg" alt="Drones in formation"></p>
 </section><section>
-<h3 id="a-possible-approach-to-the-obstacle">A possible approach to the obstacle</h3>
+<h3 id="current-approach">Current approach</h3>
 <p><img src="./images/drones_formation.png" alt="Drones avoiding an obstacle"></p>
-<h3 id="but-they-lost-formation">BUT THEY LOST FORMATION!</h3>
+
+
+<span class="fragment ">
+  <p>Potential issues:</p>
+<ul>
+<li><em>eventual</em> consistency</li>
+<li>they lost formation;</li>
+</ul>
+
+</span>
+
+</section><section>
+<h3 id="eventual-consistency">Eventual consistency</h3>
+<p>How much time will it take to re-form the formation?</p>
+<p><img src="./images/drones_eventual_consistency.png" alt="Drones losing formation"></p>
 </section><section>
 <h3 id="what-could-happen-by-losing-the-formation">What could happen by losing the formation?</h3>
 <p><img src="./images/dronws_changing-formation.png" alt="Drones losing connection"></p>
+<ul>
+<li>Lost connection</li>
+<li>New leaders</li>
+<li>Sub-formations going in different directions</li>
+</ul>
 </section><section>
 <h3 id="how-we-would-like-it-to-behave">How we would like it to behave</h3>
 <p><img src="./images/drones_avoiding_formation.png" alt="Drones avoiding obstacle while keeping formation"></p>

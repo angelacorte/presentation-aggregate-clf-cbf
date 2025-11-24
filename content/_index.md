@@ -6,7 +6,7 @@ outputs = ["Reveal"]
 
 +++
 
-# Integration of Control Lyapunov and Control Barrier Functions for Safety-Critical Guarantees in Aggregate Computing
+# Integration of Control Lyapunov and Control Barrier Functions for **Safety-Critical Guarantees** in Aggregate Computing
 
 [**Angela Cortecchia**](mailto:angela.cortecchia@unibo.it)
 
@@ -22,17 +22,33 @@ outputs = ["Reveal"]
 
 ---
 
-### A possible approach to the obstacle
+### Current approach
 
 ![Drones avoiding an obstacle](./images/drones_formation.png)
 
-### BUT THEY LOST FORMATION!
+{{% fragment %}}
+Potential issues:
+- *eventual* consistency 
+- they lost formation;
+{{% /fragment %}}
+
+---
+
+### Eventual consistency
+
+How much time will it take to re-form the formation?
+
+![Drones losing formation](./images/drones_eventual_consistency.png)
 
 ---
 
 ### What could happen by losing the formation?
 
 ![Drones losing connection](./images/dronws_changing-formation.png)
+
+- Lost connection
+- New leaders
+- Sub-formations going in different directions
 
 ---
 

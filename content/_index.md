@@ -8,10 +8,10 @@ outputs = ["Reveal"]
 
 # Integration of Control Lyapunov and Control Barrier Functions for **Safety-Critical Guarantees** in Aggregate Computing
 
-[**Angela Cortecchia**](mailto:angela.cortecchia@unibo.it)
+### [**Angela Cortecchia**](mailto:angela.cortecchia@unibo.it)
 
 <div style="text-align: center; width: 100%;">
-<img src="example-background.svg" style="width: 40%" />
+<img src="example-background.svg" style="width: 20%" />
 </div>
 
 ---
@@ -50,9 +50,9 @@ Potential issues on the transient behavior
 
 ---
 
-# What could happen by losing the formation?
+# Possible consequences of losing the formation
 
-![Drones losing connection](./images/dronws_changing-formation.png)
+![Drones losing connection](images/drones_changing-formation.png)
 
 - Lost connection
 - New leaders

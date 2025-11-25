@@ -3,6 +3,11 @@
 title = "Integration of Control Lyapunov and Control Barrier Functions for Safety-Critical Guarantees in Aggregate Computing"
 description = "Presentation slides for talk on CLF and CBF in Aggregate Computing."
 outputs = ["Reveal"]
+[params.reveal_hugo.katex]
+enable = true
+[params.reveal_hugo]
+custom_theme = "custom-theme-light.scss"
+custom_theme_compile = true
 
 +++
 
@@ -74,11 +79,188 @@ Ensure guarantees on the transient behavior of the system, not only on the event
 
 ---
 
-# How to achieve it?
+# How can we achieve it?
 
 In control theory, there exist formal methods to specify both stability and safety conditions:
 - *Control Lyapunov Functions* (CLF) for **fast convergence** and **stability**;
 - *Control Barrier Functions* (CBF) for **safety** in the transient behavior.
+
+---
+
+# Preliminaries: **Control Theory**
+
+*Control Theory* is a branch of engineering and mathematics that deals with the behavior of dynamical systems with inputs (*controls*). \
+The main goal is to develop *control strategies* that *modify the system's behavior to achieve a desired state*,
+while minimizing delays or errors, while ensuring safety and control stability.  
+
+Control can only be applied with respect to the system’s *temporal evolution*.
+
+A *Control Loop* is a feedback-driven mechanism that measures the current state of a system, 
+*compares* it to a desired set-point, 
+and *automatically adjusts the control input* to minimize the error between the two.
+
+---
+
+# Preliminaries: **Open and closed loop controls**
+
+An *automatic control system* can operate in two ways: as an *open-loop* control or as a *feedback (closed-loop) control*.
+
+{{% multicol %}}
+{{% col %}}
+
+#### Open-Loop Control
+
+The control *input* is determined *without considering the current state* of the system. \
+It relies on predefined control actions based on a model of the system.
+
+{{% /col %}}
+{{% col %}}
+#### Closed-Loop Control
+
+The control input is *continuously adjusted* based on the current state of the system. \
+It uses feedback from the system to correct deviations from the desired state.
+
+{{% /col %}}
+{{% /multicol %}}
+
+{{% multicol %}}
+{{% col %}}
+
+\
+\
+![Open-loop control](./images/open-loop.png)
+
+{{% /col %}}
+{{% col %}}
+
+![Closed-loop control](./images/closed-loop.png)
+
+{{% /col %}}
+{{% /multicol %}}
+
+---
+
+# Preliminaries: **Lyapunov Theory**
+
+{{% multicol %}}
+{{% col %}}
+
+*Lyapunov Theory* provides tools to analyze the *stability* property of dynamical systems. \
+An autonomous dynamical system without a control input is described by the equation \
+$\dot{x} = f(x)$
+
+Starting from an initial state $x_0$, 
+there exist some trajectory from there, and we want to verify whether the system converges to a desired equilibrium point $x_e$.
+
+{{% /col %}}
+{{% col %}}
+
+![trajectory](./images/trajectory-function.png)
+
+{{% /col %}}
+{{% /multicol %}}
+
+---
+
+# Preliminaries: **Lyapunov Theory**
+
+{{< multicol >}}
+{{% col %}}
+
+If we can devise a Lyapunov function $V(x)$ that satisfies: 
+- $s.t. V(x_e) = 0, V(x) > 0 for x \neq x_e$, 
+- $\dot{V}(x) = \frac{\partial V}{\partial x} f(x) < 0$ for $x \neq x_e$, 
+
+<p class="fragment" data-fragment-index="1">
+The evolution of the Lyapunov function over time will decrease towards $x_e$. </br>
+This implies that the system is stable and will converge to the desired equilibrium point.
+</p>
+
+<p class="fragment" data-fragment-index="2">
+Every positive level set of the Lyapunov function is an <em>invariant set</em>
+$\Omega = \left\{ x \mid V(x) \le c \right\}$. </br>
+If you start within that set, your trajectory will remain inside it for all future time.
+</p>
+
+{{% /col %}}
+{{< col >}}
+
+<div class="r-stack">
+  <img
+    class="fragment current-visible"
+    data-fragment-index="0"
+    src="images/trajectory-function02.png"
+  />
+  <img
+    class="fragment current-visible"
+    data-fragment-index="1"
+    src="images/trajectory-function03.png"
+  />
+    <img
+    class="fragment current-visible"
+    data-fragment-index="2"
+    src="images/lyapunov-function.png"
+  />
+</div>
+
+{{< /col >}}
+{{< /multicol >}}
+
+---
+
+# Preliminaries: **Nagumo's Invariance Theorem**
+
+Given a different function $\dot{x} = f(x)$ and a different trajectory:
+
+<img alt="trajectory" src="./images/nagumo-invariance.png" width="30%"/>
+
+Our goal is to ensure that the trajectory remains within a region of interest.
+
+---
+
+# Preliminaries: **Nagumo's Invariance Theorem**
+
+{{< multicol >}}
+{{< col >}}
+
+Considering the function $h(x)$, we have a space of states where $h(x) \geq 0$ (safe region).
+
+<p>
+$\mathcal{C} = \{ x \mid h(x) \geq 0 \}$ → <em>super zero level set of $h$</em>
+</p>
+
+Our goal is to ensure that the trajectory remains within a region of interest.
+
+<p class="fragment" data-fragment-index="1">
+At the boundary of the set $\mathcal{C}$, the $h(x)$ function should satisfy: 
+$\dot{h}(x) \geq 0 \forall x \in \partial \mathcal{C}$
+
+In the region the function $h(x)$ can evolve in any way, but as long as it reaches the boundary of $h$, 
+the $\dot{h}$ indicates that $h$ should increase again. 
+In fact, the set $\mathcal{C}$ contains all the states where $h(x) \geq 0$.
+
+If you can find such a function $h(x)$, then the set $\mathcal{C}$ will always be invariant for the system dynamics.
+ 
+</p>
+
+{{< /col >}}
+{{< col >}}
+
+<div class="r-stack">
+  <img
+    class="fragment current-visible"
+    data-fragment-index="0"
+    src="images/nagumo-invariance02.png"
+  />
+  <img
+    class="fragment current-visible"
+    data-fragment-index="1"
+    src="images/nagumo-invariance03.png"
+  />
+</div>
+
+{{< /col >}}
+{{< /multicol >}}
 
 ---
 
@@ -93,6 +275,8 @@ where:
 - $u \in \mathcal{U} \subset \mathbb{R}^m$ is the *control input* (input, actuator commands, etc.),
 - $f: \mathbb{R}^n \to \mathbb{R}^n$ is the *drift vector field* (the natural evolution of the system without control),
 - $g: \mathbb{R}^n \to \mathbb{R}^{n \times m}$ is the *control input matrix* (how the control input affects the system).
+
+<img alt="Control-Affine System" class="fragment" data-fragment-index=0 src="./images/closed-loop-function.png" width="40%"/>
 
 ---
 
@@ -126,15 +310,50 @@ This notation allows us to express how $h(x)$ evolves over time under the influe
 
 # Control **Lyapunov** Functions (CLF)
 
-A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ is a *Control Lyapunov Function* for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:
+
+{{% multicol %}}
+
+{{% col %}}
+
+A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ \
+is a *Control Lyapunov Function* for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:
 1. $V(x) = 0$ for all $x \in \mathcal{X}_d$ and $V(x) > 0$ for all $x \notin \mathcal{X}_d$ (positive definiteness);
-2. For all $x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ such that:
+2. For all $x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ such that for some constant $c > 0$ *:
 
-$L_f V(x) + L_g V(x) u < 0$
+$L_f V(x) + L_g V(x) u \leq -cV(x)$
 
-This condition ensures that the system can be driven towards the equilibrium point $x = 0$. \
-The existence of a CLF implies that the system is *stabilizable*. \
-CLFs are used to design feedback control laws that ensure the system's stability.
+{{% /col %}}
+
+{{% col %}}
+
+This condition guarantees that $V(x(t))$ decreases along trajectories, so $x(t)$ converges to the target set $\mathcal{X}_d$.
+
+It ensures that the system can be driven towards the equilibrium point $x = 0$, \
+thus the existence of a CLF implies that the system is *stabilizable*. 
+
+[//]: # (CLFs are used to design feedback control laws that ensure the system's stability.)
+
+{{% /col %}}
+
+{{% /multicol %}}
+
+<div>
+<small style="text-align: left">
+* The constant $c > 0$ determines the rate of convergence; larger values lead to faster convergence.
+</small>
+</div>
+
+---
+
+# CLF Example: single robot reaching a target
+
+Consider a robot with dynamics: $\dot{x} = u$ where $x \in \mathbb{R}^2$ is the position and $u \in \mathbb{R}^2$ is the velocity control input.
+We want the robot to reach the target position $x_d$.
+A CLF based on the distance to the target is:
+$V(x) = (x - x_d)^2$
+$V(x) \geq 0$ for all $x$.
+$V(x) = 0$ if and only if $x = x_d$.
+
 
 ---
 

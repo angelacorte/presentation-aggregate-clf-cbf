@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/css/custom-theme.min.ec055a3a78300d64103277494e62208ab2caa86ad289dcbdd88b8790f6e7d69c.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
+  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/_.min.97d11dba4117a5e8a05b44747eade87a8317dc344f4ac47637c44dbd6e9e3b58.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -71,12 +71,142 @@
 <h1 id="our-goal">Our goal</h1>
 <p>Ensure guarantees on the transient behavior of the system, not only on the eventual one.</p>
 </section><section>
-<h1 id="how-to-achieve-it">How to achieve it?</h1>
+<h1 id="how-can-we-achieve-it">How can we achieve it?</h1>
 <p>In control theory, there exist formal methods to specify both stability and safety conditions:</p>
 <ul>
 <li><em>Control Lyapunov Functions</em> (CLF) for <strong>fast convergence</strong> and <strong>stability</strong>;</li>
 <li><em>Control Barrier Functions</em> (CBF) for <strong>safety</strong> in the transient behavior.</li>
 </ul>
+</section><section>
+<h1 id="preliminaries-control-theory">Preliminaries: <strong>Control Theory</strong></h1>
+<p><em>Control Theory</em> is a branch of engineering and mathematics that deals with the behavior of dynamical systems with inputs (<em>controls</em>). <br>
+The main goal is to develop <em>control strategies</em> that <em>modify the system’s behavior to achieve a desired state</em>,
+while minimizing delays or errors, while ensuring safety and control stability.</p>
+<p>Control can only be applied with respect to the system’s <em>temporal evolution</em>.</p>
+<p>A <em>Control Loop</em> is a feedback-driven mechanism that measures the current state of a system,
+<em>compares</em> it to a desired set-point,
+and <em>automatically adjusts the control input</em> to minimize the error between the two.</p>
+</section><section>
+<h1 id="preliminaries-open-and-closed-loop-controls">Preliminaries: <strong>Open and closed loop controls</strong></h1>
+<p>An <em>automatic control system</em> can operate in two ways: as an <em>open-loop</em> control or as a <em>feedback (closed-loop) control</em>.</p>
+
+<div class="container w-100 m-0 p-0">
+    <div class="row "><div class="col "><h4 id="open-loop-control">Open-Loop Control</h4>
+<p>The control <em>input</em> is determined <em>without considering the current state</em> of the system. <br>
+It relies on predefined control actions based on a model of the system.</p>
+</div>
+<div class="col "><h4 id="closed-loop-control">Closed-Loop Control</h4>
+<p>The control input is <em>continuously adjusted</em> based on the current state of the system. <br>
+It uses feedback from the system to correct deviations from the desired state.</p>
+</div>
+</div>
+</div>
+
+<div class="container w-100 m-0 p-0">
+    <div class="row "><div class="col "><p><br>
+<br>
+<img src="./images/open-loop.png" alt="Open-loop control"></p>
+</div>
+<div class="col "><p><img src="./images/closed-loop.png" alt="Closed-loop control"></p>
+</div>
+</div>
+</div>
+</section><section>
+<h1 id="preliminaries-lyapunov-theory">Preliminaries: <strong>Lyapunov Theory</strong></h1>
+
+<div class="container w-100 m-0 p-0">
+    <div class="row "><div class="col "><p><em>Lyapunov Theory</em> provides tools to analyze the <em>stability</em> property of dynamical systems. <br>
+An autonomous dynamical system without a control input is described by the equation <br>
+$\dot{x} = f(x)$</p>
+<p>Starting from an initial state $x_0$,
+there exist some trajectory from there, and we want to verify whether the system converges to a desired equilibrium point $x_e$.</p>
+</div>
+<div class="col "><p><img src="./images/trajectory-function.png" alt="trajectory"></p>
+</div>
+</div>
+</div>
+</section><section>
+<h1 id="preliminaries-lyapunov-theory-1">Preliminaries: <strong>Lyapunov Theory</strong></h1>
+
+<div class="container w-100 m-0 p-0">
+    <div class="row ">
+
+
+<div class="col "><p>If we can devise a Lyapunov function $V(x)$ that satisfies:</p>
+<ul>
+<li>$s.t. V(x_e) = 0, V(x) &gt; 0 for x \neq x_e$,</li>
+<li>$\dot{V}(x) = \frac{\partial V}{\partial x} f(x) &lt; 0$ for $x \neq x_e$,</li>
+</ul>
+<p class="fragment" data-fragment-index="1">
+The evolution of the Lyapunov function over time will decrease towards $x_e$. <br>
+This implies that the system is stable and will converge to the desired equilibrium point.
+</p>
+<p class="fragment" data-fragment-index="2">
+Every positive level set of the Lyapunov function is an <em>invariant set</em>
+$\Omega = \left\{ x \mid V(x) \le c \right\}$. <br>
+If you start within that set, your trajectory will remain inside it for all future time.
+</p>
+</div>
+
+
+<div class="col ">
+
+<div class="r-stack">
+  <img class="fragment current-visible" data-fragment-index="0" src="images/trajectory-function02.png">
+  <img class="fragment current-visible" data-fragment-index="1" src="images/trajectory-function03.png">
+    <img class="fragment current-visible" data-fragment-index="2" src="images/lyapunov-function.png">
+</div>
+
+</div>
+</div>
+</div>
+</section><section>
+<h1 id="preliminaries-nagumo">Preliminaries: <strong>Nagumo’s Invariance Theorem</strong></h1>
+<p>Given a different function $\dot{x} = f(x)$ and a different trajectory:</p>
+<img alt="trajectory" src="./images/nagumo-invariance.png" width="30%">
+<p>Our goal is to ensure that the trajectory remains within a region of interest.</p>
+</section><section>
+<h1 id="preliminaries-nagumo-1">Preliminaries: <strong>Nagumo’s Invariance Theorem</strong></h1>
+
+<div class="container w-100 m-0 p-0">
+    <div class="row ">
+
+
+<div class="col ">
+
+Considering the function $h(x)$, we have a space of states where $h(x) \geq 0$ (safe region).
+
+<p>
+$\mathcal{C} = \{ x \mid h(x) \geq 0 \}$ → <em>super zero level set of $h$</em>
+</p>
+
+Our goal is to ensure that the trajectory remains within a region of interest.
+
+<p class="fragment" data-fragment-index="1">
+At the boundary of the set $\mathcal{C}$, the $h(x)$ function should satisfy: 
+$\dot{h}(x) \geq 0 \forall x \in \partial \mathcal{C}$
+
+In the region the function $h(x)$ can evolve in any way, but as long as it reaches the boundary of $h$, 
+the $\dot{h}$ indicates that $h$ should increase again. 
+In fact, the set $\mathcal{C}$ contains all the states where $h(x) \geq 0$.
+
+If you can find such a function $h(x)$, then the set $\mathcal{C}$ will always be invariant for the system dynamics.
+ 
+</p>
+
+</div>
+
+
+<div class="col ">
+
+<div class="r-stack">
+  <img class="fragment current-visible" data-fragment-index="0" src="images/nagumo-invariance02.png">
+  <img class="fragment current-visible" data-fragment-index="1" src="images/nagumo-invariance03.png">
+</div>
+
+</div>
+</div>
+</div>
 </section><section>
 <h1 id="preliminaries-control-affine-systems">Preliminaries: <strong>Control-Affine Systems</strong></h1>
 <p>A <strong>Control-Affine System</strong> is a <em>dynamical</em> system described by the equation:</p>
@@ -88,6 +218,7 @@
 <li>$f: \mathbb{R}^n \to \mathbb{R}^n$ is the <em>drift vector field</em> (the natural evolution of the system without control),</li>
 <li>$g: \mathbb{R}^n \to \mathbb{R}^{n \times m}$ is the <em>control input matrix</em> (how the control input affects the system).</li>
 </ul>
+<img alt="Control-Affine System" class="fragment" data-fragment-index="0" src="./images/closed-loop-function.png" width="40%">
 </section><section>
 <h1 id="preliminaries-lie-derivatives">Preliminaries: <strong>Lie Derivatives</strong></h1>
 <p>The <em>Lie Derivative</em> of a differential scalar function $h: \mathbb{R}^n \to \mathbb{R}$ along a vector field $f: \mathbb{R}^n \to \mathbb{R}^n$ is defined as:</p>
@@ -106,15 +237,35 @@
 <p>This notation allows us to express how $h(x)$ evolves over time under the influence of both the system’s natural dynamics and the applied control input.</p>
 </section><section>
 <h1 id="control-lyapunov-functions-clf">Control <strong>Lyapunov</strong> Functions (CLF)</h1>
-<p>A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ is a <em>Control Lyapunov Function</em> for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:</p>
+
+<div class="container w-100 m-0 p-0">
+    <div class="row "><div class="col "><p>A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ <br>
+is a <em>Control Lyapunov Function</em> for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:</p>
 <ol>
 <li>$V(x) = 0$ for all $x \in \mathcal{X}_d$ and $V(x) &gt; 0$ for all $x \notin \mathcal{X}_d$ (positive definiteness);</li>
-<li>For all $x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ such that:</li>
+<li>For all $x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ such that for some constant $c &gt; 0$ *:</li>
 </ol>
-<p>$L_f V(x) + L_g V(x) u &lt; 0$</p>
-<p>This condition ensures that the system can be driven towards the equilibrium point $x = 0$. <br>
-The existence of a CLF implies that the system is <em>stabilizable</em>. <br>
-CLFs are used to design feedback control laws that ensure the system’s stability.</p>
+<p>$L_f V(x) + L_g V(x) u \leq -cV(x)$</p>
+</div>
+<div class="col "><p>This condition guarantees that $V(x(t))$ decreases along trajectories, so $x(t)$ converges to the target set $\mathcal{X}_d$.</p>
+<p>It ensures that the system can be driven towards the equilibrium point $x = 0$, <br>
+thus the existence of a CLF implies that the system is <em>stabilizable</em>.</p>
+</div>
+</div>
+</div>
+<div>
+<small style="text-align: left">
+* The constant $c &gt; 0$ determines the rate of convergence; larger values lead to faster convergence.
+</small>
+</div>
+</section><section>
+<h1 id="clf-example-single-robot-reaching-a-target">CLF Example: single robot reaching a target</h1>
+<p>Consider a robot with dynamics: $\dot{x} = u$ where $x \in \mathbb{R}^2$ is the position and $u \in \mathbb{R}^2$ is the velocity control input.
+We want the robot to reach the target position $x_d$.
+A CLF based on the distance to the target is:
+$V(x) = (x - x_d)^2$
+$V(x) \geq 0$ for all $x$.
+$V(x) = 0$ if and only if $x = x_d$.</p>
 </section><section>
 <h1 id="control-barrier-functions-cbf">Control <strong>Barrier</strong> Functions (CBF)</h1>
 </section><section>
@@ -186,8 +337,8 @@ potrebbe anche succedere che si scollega la connessione tra di loro e ognuno vad
 
 <a href="/presentation-aggregate-clf-cbf/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
 
-<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"1080","highlight_theme":"solarized-dark","history":true,"mermaid":[{}],"slide_number":true,"theme":"league","transition":"slide","transition_speed":"fast","width":"1920"}</script>
-<script type="application/json" id="reveal-hugo-page-params">null</script>
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme-light.scss","custom_theme_compile":true,"height":"1080","highlight_theme":"solarized-dark","history":true,"mermaid":[{}],"slide_number":true,"theme":"league","transition":"slide","transition_speed":"fast","width":"1920"}</script>
+<script type="application/json" id="reveal-hugo-page-params">{"custom_theme":"custom-theme-light.scss","custom_theme_compile":true,"katex":{"enable":true}}</script>
 
 <script src="/presentation-aggregate-clf-cbf/reveal-js/dist/reveal.js"></script>
 

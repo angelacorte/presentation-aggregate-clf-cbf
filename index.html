@@ -272,6 +272,22 @@ $\dot{V} = -2k || p - p_d ||^2 \leq 0$</p>
 driving $p$ towards $p_d$ and stabilizing the system at the desired point.</p>
 </section><section>
 <h1 id="control-barrier-functions-cbf">Control <strong>Barrier</strong> Functions (CBF)</h1>
+<p>A continuously differentiable function $h: \mathbb{R}^n \to \mathbb{R}$ is a <em>Control Barrier Function</em> for the safe set</p>
+<p>
+$\mathcal{C} = \{ x \in \mathbb{R}^n \mid h(x) \geq 0 \}$
+</p>
+<p>We want $\mathcal{C}$ to be forward invariant, i.e., if the system starts or enters in $\mathcal{C}$, it remains in $\mathcal{C}$ for all future time.</p>
+<p>$h$ is a CBF if:</p>
+<ol>
+<li>$h(x) &gt; 0$ for all $x$ in the interior of $\mathcal{C}$, $h(x) = 0$ for all $x$ on the boundary of $\mathcal{C}$, and $h(x) &lt; 0$ for all $x$ outside $\mathcal{C}$ (set definition);</li>
+<li>For all $x$ in $\mathcal{C}$, there exists a control input $u \in \mathcal{U}$ such that for some constant $k &gt; 0$ *:</li>
+<li>$L_f h(x) + L_g h(x) u \geq -k h(x)$</li>
+</ol>
+<p>
+
+</p><div style="margin-top: 4rem;"></div>
+This condition ensures that the system’s state remains within the safe set $\mathcal{C}$ over time,
+preventing it from entering unsafe regions.<p></p>
 </section><section>
 <h1 id="clf-cbf-quadratic-program">CLF-CBF-<strong>Quadratic Program</strong></h1>
 </section><section>

@@ -165,11 +165,13 @@ there exist some trajectory from there, and we want to verify whether the system
 # Preliminaries: **Lyapunov Theory**
 
 {{< multicol >}}
-{{% col %}}
+{{< col class="col-7">}}
 
 If we can devise a Lyapunov function $V(x)$ that satisfies: 
-- $s.t. V(x_e) = 0, V(x) > 0 for x \neq x_e$, 
-- $\dot{V}(x) = \frac{\partial V}{\partial x} f(x) < 0$ for $x \neq x_e$, 
+<ul>
+    <li>$s.t. V(x_e) = 0, V(x) > 0 for x \neq x_e$,</li>
+    <li>$\dot{V}(x) = \frac{\partial V}{\partial x} f(x) < 0$ for $x \neq x_e$,</li>
+</ul>
 
 <p class="fragment" data-fragment-index="1">
 The evolution of the Lyapunov function over time will decrease towards $x_e$. </br>
@@ -178,11 +180,11 @@ This implies that the system is stable and will converge to the desired equilibr
 
 <p class="fragment" data-fragment-index="2">
 Every positive level set of the Lyapunov function is an <em>invariant set</em>
-$\Omega = \left\{ x \mid V(x) \le c \right\}$. </br>
+&nbsp;&nbsp;$\Omega = \left\{ x \mid V(x) \le c \right\}$. </br>
 If you start within that set, your trajectory will remain inside it for all future time.
 </p>
 
-{{% /col %}}
+{{< /col >}}
 {{< col >}}
 
 <div class="r-stack">
@@ -220,7 +222,7 @@ Our goal is to ensure that the trajectory remains within a region of interest.
 # Preliminaries: **Nagumo's Invariance Theorem**
 
 {{< multicol >}}
-{{< col >}}
+{{< col class="col-7">}}
 
 Given a function $h(x)$, the safe region (space of states we want to remain in) is:
 <p>
@@ -273,20 +275,16 @@ where:
 
 # Preliminaries: **Lie Derivatives**
 
+
 The *Lie Derivative* of a differential scalar function $h: \mathbb{R}^n \to \mathbb{R}$ along a vector field $f: \mathbb{R}^n \to \mathbb{R}^n$ is defined as:
 
 $L_f h(x) = \frac{\partial h}{\partial x} f(x) = \nabla h(x) \cdot f(x)$
 
 It represents how $h(x)$ changes in time as the state evolves according to the system dynamics.
 
-[//]: # (It represents the rate of change of $h$ along the trajectories of the system defined by $f$.)
-[//]: # (→ How fast a f unction changes as we move along the trajectories of a dynamical system.)
+<div class="fragment" style="margin-top: 5rem;">
 
----
-
-# More on **Lie Derivatives**
-
-For our Control-Affine System $\dot{x} = f(x) + g(x)u$, the time derivative of $h(x)$ is given by:
+For a Control-Affine System $\dot{x} = f(x) + g(x)u$, the time derivative of $h(x)$ is:
 
 $\dot{h}(x, u) = L_f h(x) + L_g h(x) u$
 
@@ -295,7 +293,8 @@ where:
 - $L_g h(x)$ is the Lie Derivative of $h$ along $g$ (control term),
 - $u$ is the control input.
 
-This notation allows us to express how $h(x)$ evolves over time under the influence of both the system's natural dynamics and the applied control input.
+*This notation captures how $h(x)$ evolves due to both natural dynamics and control input over time.*
+</div>
 
 ---
 

@@ -180,7 +180,7 @@ This implies that the system is stable and will converge to the desired equilibr
 
 <p class="fragment" data-fragment-index="2">
 Every positive level set of the Lyapunov function is an <em>invariant set</em>
-&nbsp;&nbsp;$\Omega = \left\{ x \mid V(x) \le c \right\}$. </br>
+{{< tab times="3">}}$\Omega = \left\{ x \mid V(x) \le c \right\}$. </br>
 If you start within that set, your trajectory will remain inside it for all future time.
 </p>
 
@@ -319,23 +319,38 @@ proving that the system is stabilizable through feedback control.
 </small>
 </div>
 
-
 ---
 
-# CLF Example: single robot reaching a target
+# CLF Example: point stabilization
 
-Consider a robot with dynamics: $\dot{x} = u$ where $x \in \mathbb{R}^2$ is the position and $u \in \mathbb{R}^2$ is the velocity control input.
-We want the robot to reach the target position $x_d$.
-A CLF based on the distance to the target is:
-$V(x) = (x - x_d)^2$
-$V(x) \geq 0$ for all $x$.
-$V(x) = 0$ if and only if $x = x_d$.
+For a system {{< tab times="2">}}$\dot{p} = u${{< tab times="2">}}
+where we want to stabilize the position $p$ of a point at a desired location $p_d$.
 
+We want to design a control input $u$ that drives $p$ towards $p_d$.
+
+We then define:
+- the CLF: {{< tab >}}$V(p) = \|\| p - p_d \|\|^2$
+- the Lie Derivatives of $V$ along $f$ and $g$ respectively:
+{{< tab >}}$L_f V(p)=0${{< tab times="8">}}$L_g V(p) = 2(p - p_d)$
+
+Thus,{{< tab >}} $\dot{V}(p,u)=2(p-p_d)^\top u${{< tab >}}which links the control input $u$ to the rate of change of $V$.
+
+Choosing a control input $u$ such that:
+
+$u=-k(p-p_d)$ for some $k > 0$ ensures that{{< tab >}}
+$\dot{V} = -2k \|\| p - p_d \|\|^2 \leq 0$
+
+Which guarantees that $V(p)$ decreases exponentially over time, 
+driving $p$ towards $p_d$ and stabilizing the system at the desired point.
 
 ---
 
 # Control **Barrier** Functions (CBF)
  
+---
+
+# CLF-CBF-**Quadratic Program**
+
 ---
 
 # Research question(s)

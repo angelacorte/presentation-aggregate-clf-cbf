@@ -346,7 +346,23 @@ driving $p$ towards $p_d$ and stabilizing the system at the desired point.
 ---
 
 # Control **Barrier** Functions (CBF)
- 
+
+A continuously differentiable function $h: \mathbb{R}^n \to \mathbb{R}$ is a *Control Barrier Function* for the safe set 
+<p>
+$\mathcal{C} = \{ x \in \mathbb{R}^n \mid h(x) \geq 0 \}$
+</p>
+
+We want $\mathcal{C}$ to be forward invariant, i.e., if the system starts or enters in $\mathcal{C}$, it remains in $\mathcal{C}$ for all future time.
+
+$h$ is a CBF if:
+1. $h(x) > 0$ for all $x$ in the interior of $\mathcal{C}$, $h(x) = 0$ for all $x$ on the boundary of $\mathcal{C}$, and $h(x) < 0$ for all $x$ outside $\mathcal{C}$ (set definition);
+2. For all $x$ in $\mathcal{C}$, there exists a control input $u \in \mathcal{U}$ such that for some constant $k > 0$ *:
+3. $L_f h(x) + L_g h(x) u \geq -k h(x)$
+
+{{% spacer %}}
+This condition ensures that the system's state remains within the safe set $\mathcal{C}$ over time,
+preventing it from entering unsafe regions. 
+
 ---
 
 # CLF-CBF-**Quadratic Program**

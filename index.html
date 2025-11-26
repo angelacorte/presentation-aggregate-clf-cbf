@@ -91,11 +91,11 @@ and <em>automatically adjusts the control input</em> to minimize the error betwe
 <p>An <em>automatic control system</em> can operate in two ways: as an <em>open-loop</em> control or as a <em>feedback (closed-loop) control</em>.</p>
 
 <div class="container w-100 m-0 p-0">
-    <div class="row "><div class="col "><h4 id="open-loop-control">Open-Loop Control</h4>
+    <div class="row "><div style="text-align: justify" class="col "><h4 id="open-loop-control">Open-Loop Control</h4>
 <p>The control <em>input</em> is determined <em>without considering the current state</em> of the system. <br>
 It relies on predefined control actions based on a model of the system.</p>
 </div>
-<div class="col "><h4 id="closed-loop-control">Closed-Loop Control</h4>
+<div style="text-align: justify" class="col "><h4 id="feedback--closed-loop-control">Feedback / Closed-Loop Control</h4>
 <p>The control input is <em>continuously adjusted</em> based on the current state of the system. <br>
 It uses feedback from the system to correct deviations from the desired state.</p>
 </div>
@@ -103,11 +103,11 @@ It uses feedback from the system to correct deviations from the desired state.</
 </div>
 
 <div class="container w-100 m-0 p-0">
-    <div class="row "><div class="col "><p><br>
+    <div class="row "><div style="text-align: justify" class="col "><p><br>
 <br>
 <img src="./images/open-loop.png" alt="Open-loop control"></p>
 </div>
-<div class="col "><p><img src="./images/closed-loop.png" alt="Closed-loop control"></p>
+<div style="text-align: justify" class="col "><p><img src="./images/closed-loop.png" alt="Closed-loop control"></p>
 </div>
 </div>
 </div>
@@ -115,13 +115,13 @@ It uses feedback from the system to correct deviations from the desired state.</
 <h1 id="preliminaries-lyapunov-theory">Preliminaries: <strong>Lyapunov Theory</strong></h1>
 
 <div class="container w-100 m-0 p-0">
-    <div class="row "><div class="col "><p><em>Lyapunov Theory</em> provides tools to analyze the <em>stability</em> property of dynamical systems. <br>
+    <div class="row "><div style="text-align: justify" class="col "><p><em>Lyapunov Theory</em> provides tools to analyze the <em>stability</em> property of dynamical systems. <br>
 An autonomous dynamical system without a control input is described by the equation <br>
 $\dot{x} = f(x)$</p>
 <p>Starting from an initial state $x_0$,
 there exist some trajectory from there, and we want to verify whether the system converges to a desired equilibrium point $x_e$.</p>
 </div>
-<div class="col "><p><img src="./images/trajectory-function.png" alt="trajectory"></p>
+<div style="text-align: justify" class="col "><p><img src="./images/trajectory-function.png" alt="trajectory"></p>
 </div>
 </div>
 </div>
@@ -132,27 +132,32 @@ there exist some trajectory from there, and we want to verify whether the system
     <div class="row ">
 
 
-<div class="col "><p>If we can devise a Lyapunov function $V(x)$ that satisfies:</p>
+<div style="text-align: justify" class="col col-7">
+
+If we can devise a Lyapunov function $V(x)$ that satisfies: 
 <ul>
-<li>$s.t. V(x_e) = 0, V(x) &gt; 0 for x \neq x_e$,</li>
-<li>$\dot{V}(x) = \frac{\partial V}{\partial x} f(x) &lt; 0$ for $x \neq x_e$,</li>
+    <li>$s.t. V(x_e) = 0, V(x) &gt; 0 for x \neq x_e$,</li>
+    <li>$\dot{V}(x) = \frac{\partial V}{\partial x} f(x) &lt; 0$ for $x \neq x_e$,</li>
 </ul>
+
 <p class="fragment" data-fragment-index="1">
 The evolution of the Lyapunov function over time will decrease towards $x_e$. <br>
 This implies that the system is stable and will converge to the desired equilibrium point.
 </p>
+
 <p class="fragment" data-fragment-index="2">
 Every positive level set of the Lyapunov function is an <em>invariant set</em>
-$\Omega = \left\{ x \mid V(x) \le c \right\}$. <br>
+&nbsp;&nbsp;&nbsp;$\Omega = \left\{ x \mid V(x) \le c \right\}$. <br>
 If you start within that set, your trajectory will remain inside it for all future time.
 </p>
+
 </div>
 
 
-<div class="col ">
+<div style="text-align: justify" class="col ">
 
 <div class="r-stack">
-  <img class="fragment current-visible" data-fragment-index="0" src="images/trajectory-function02.png">
+  <img class="current-visible" src="images/trajectory-function02.png">
   <img class="fragment current-visible" data-fragment-index="1" src="images/trajectory-function03.png">
     <img class="fragment current-visible" data-fragment-index="2" src="images/lyapunov-function.png">
 </div>
@@ -172,35 +177,28 @@ If you start within that set, your trajectory will remain inside it for all futu
     <div class="row ">
 
 
-<div class="col ">
+<div style="text-align: justify" class="col col-7">
 
-Considering the function $h(x)$, we have a space of states where $h(x) \geq 0$ (safe region).
-
+Given a function $h(x)$, the safe region (space of states we want to remain in) is:
 <p>
 $\mathcal{C} = \{ x \mid h(x) \geq 0 \}$ → <em>super zero level set of $h$</em>
 </p>
 
-Our goal is to ensure that the trajectory remains within a region of interest.
-
 <p class="fragment" data-fragment-index="1">
-At the boundary of the set $\mathcal{C}$, the $h(x)$ function should satisfy: 
-$\dot{h}(x) \geq 0 \forall x \in \partial \mathcal{C}$
+To guarantee that trajectories never leave $\mathcal{C}$ (safety), it is enough to ensure that, on its boundary: <br>
+$\dot{h}(x) \geq 0 \forall x \in \partial \mathcal{C}$ <br>
 
-In the region the function $h(x)$ can evolve in any way, but as long as it reaches the boundary of $h$, 
-the $\dot{h}$ indicates that $h$ should increase again. 
-In fact, the set $\mathcal{C}$ contains all the states where $h(x) \geq 0$.
-
-If you can find such a function $h(x)$, then the set $\mathcal{C}$ will always be invariant for the system dynamics.
- 
+If the condition holds, $\mathcal{C}$ is <em>forward invariant</em>: 
+once inside, the system will always remain inside the safe region.
 </p>
 
 </div>
 
 
-<div class="col ">
+<div style="text-align: justify" class="col ">
 
 <div class="r-stack">
-  <img class="fragment current-visible" data-fragment-index="0" src="images/nagumo-invariance02.png">
+  <img class="current-visible" src="images/nagumo-invariance02.png">
   <img class="fragment current-visible" data-fragment-index="1" src="images/nagumo-invariance03.png">
 </div>
 
@@ -218,15 +216,14 @@ If you can find such a function $h(x)$, then the set $\mathcal{C}$ will always b
 <li>$f: \mathbb{R}^n \to \mathbb{R}^n$ is the <em>drift vector field</em> (the natural evolution of the system without control),</li>
 <li>$g: \mathbb{R}^n \to \mathbb{R}^{n \times m}$ is the <em>control input matrix</em> (how the control input affects the system).</li>
 </ul>
-<img alt="Control-Affine System" class="fragment" data-fragment-index="0" src="./images/closed-loop-function.png" width="40%">
+<img class="fragment" data-fragment-index="0" src="./images/closed-loop-function.png" width="40%">
 </section><section>
 <h1 id="preliminaries-lie-derivatives">Preliminaries: <strong>Lie Derivatives</strong></h1>
 <p>The <em>Lie Derivative</em> of a differential scalar function $h: \mathbb{R}^n \to \mathbb{R}$ along a vector field $f: \mathbb{R}^n \to \mathbb{R}^n$ is defined as:</p>
 <p>$L_f h(x) = \frac{\partial h}{\partial x} f(x) = \nabla h(x) \cdot f(x)$</p>
 <p>It represents how $h(x)$ changes in time as the state evolves according to the system dynamics.</p>
-</section><section>
-<h1 id="more-on-lie-derivatives">More on <strong>Lie Derivatives</strong></h1>
-<p>For our Control-Affine System $\dot{x} = f(x) + g(x)u$, the time derivative of $h(x)$ is given by:</p>
+<div class="fragment" style="margin-top: 5rem;">
+<p>For a Control-Affine System $\dot{x} = f(x) + g(x)u$, the time derivative of $h(x)$ is:</p>
 <p>$\dot{h}(x, u) = L_f h(x) + L_g h(x) u$</p>
 <p>where:</p>
 <ul>
@@ -234,40 +231,49 @@ If you can find such a function $h(x)$, then the set $\mathcal{C}$ will always b
 <li>$L_g h(x)$ is the Lie Derivative of $h$ along $g$ (control term),</li>
 <li>$u$ is the control input.</li>
 </ul>
-<p>This notation allows us to express how $h(x)$ evolves over time under the influence of both the system’s natural dynamics and the applied control input.</p>
+<p><em>This notation captures how $h(x)$ evolves due to both natural dynamics and control input over time.</em></p>
+</div>
 </section><section>
 <h1 id="control-lyapunov-functions-clf">Control <strong>Lyapunov</strong> Functions (CLF)</h1>
-
-<div class="container w-100 m-0 p-0">
-    <div class="row "><div class="col "><p>A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ <br>
+<p>A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ <br>
 is a <em>Control Lyapunov Function</em> for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:</p>
 <ol>
 <li>$V(x) = 0$ for all $x \in \mathcal{X}_d$ and $V(x) &gt; 0$ for all $x \notin \mathcal{X}_d$ (positive definiteness);</li>
 <li>For all $x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ such that for some constant $c &gt; 0$ *:</li>
 </ol>
 <p>$L_f V(x) + L_g V(x) u \leq -cV(x)$</p>
-</div>
-<div class="col "><p>This condition guarantees that $V(x(t))$ decreases along trajectories, so $x(t)$ converges to the target set $\mathcal{X}_d$.</p>
-<p>It ensures that the system can be driven towards the equilibrium point $x = 0$, <br>
-thus the existence of a CLF implies that the system is <em>stabilizable</em>.</p>
-</div>
-</div>
-</div>
+
+
+<div style="margin-top: 4rem;"></div>
+<p>This condition ensures that $V(x(t))$ keeps decreasing over time, so the state $x(t)$ moves closer and closer to the desired target set $\mathcal{X}_d$.</p>
+<p>In practice, this means we can drive the system toward its equilibrium,
+proving that the system is stabilizable through feedback control.</p>
 <div>
 <small style="text-align: left">
 * The constant $c &gt; 0$ determines the rate of convergence; larger values lead to faster convergence.
 </small>
 </div>
 </section><section>
-<h1 id="clf-example-single-robot-reaching-a-target">CLF Example: single robot reaching a target</h1>
-<p>Consider a robot with dynamics: $\dot{x} = u$ where $x \in \mathbb{R}^2$ is the position and $u \in \mathbb{R}^2$ is the velocity control input.
-We want the robot to reach the target position $x_d$.
-A CLF based on the distance to the target is:
-$V(x) = (x - x_d)^2$
-$V(x) \geq 0$ for all $x$.
-$V(x) = 0$ if and only if $x = x_d$.</p>
+<h1 id="clf-example-point-stabilization">CLF Example: point stabilization</h1>
+<p>For a system &nbsp;&nbsp;$\dot{p} = u$&nbsp;&nbsp;
+where we want to stabilize the position $p$ of a point at a desired location $p_d$.</p>
+<p>We want to design a control input $u$ that drives $p$ towards $p_d$.</p>
+<p>We then define:</p>
+<ul>
+<li>the CLF: &nbsp;&nbsp;&nbsp;&nbsp;$V(p) = || p - p_d ||^2$</li>
+<li>the Lie Derivatives of $V$ along $f$ and $g$ respectively:
+&nbsp;&nbsp;&nbsp;&nbsp;$L_f V(p)=0$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$L_g V(p) = 2(p - p_d)$</li>
+</ul>
+<p>Thus,&nbsp;&nbsp;&nbsp;&nbsp; $\dot{V}(p,u)=2(p-p_d)^\top u$&nbsp;&nbsp;&nbsp;&nbsp;which links the control input $u$ to the rate of change of $V$.</p>
+<p>Choosing a control input $u$ such that:</p>
+<p>$u=-k(p-p_d)$ for some $k &gt; 0$ ensures that&nbsp;&nbsp;&nbsp;&nbsp;
+$\dot{V} = -2k || p - p_d ||^2 \leq 0$</p>
+<p>Which guarantees that $V(p)$ decreases exponentially over time,
+driving $p$ towards $p_d$ and stabilizing the system at the desired point.</p>
 </section><section>
 <h1 id="control-barrier-functions-cbf">Control <strong>Barrier</strong> Functions (CBF)</h1>
+</section><section>
+<h1 id="clf-cbf-quadratic-program">CLF-CBF-<strong>Quadratic Program</strong></h1>
 </section><section>
 <h1 id="research-questions">Research question(s)</h1>
 <ul>

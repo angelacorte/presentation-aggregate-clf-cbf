@@ -187,8 +187,7 @@ If you start within that set, your trajectory will remain inside it for all futu
 
 <div class="r-stack">
   <img
-    class="fragment current-visible"
-    data-fragment-index="0"
+    class="current-visible"
     src="images/trajectory-function02.png"
   />
   <img
@@ -223,24 +222,17 @@ Our goal is to ensure that the trajectory remains within a region of interest.
 {{< multicol >}}
 {{< col >}}
 
-Considering the function $h(x)$, we have a space of states where $h(x) \geq 0$ (safe region).
-
+Given a function $h(x)$, the safe region (space of states we want to remain in) is:
 <p>
 $\mathcal{C} = \{ x \mid h(x) \geq 0 \}$ → <em>super zero level set of $h$</em>
 </p>
 
-Our goal is to ensure that the trajectory remains within a region of interest.
-
 <p class="fragment" data-fragment-index="1">
-At the boundary of the set $\mathcal{C}$, the $h(x)$ function should satisfy: 
-$\dot{h}(x) \geq 0 \forall x \in \partial \mathcal{C}$
+To guarantee that trajectories never leave $\mathcal{C}$ (safety), it is enough to ensure that, on its boundary: <br>
+$\dot{h}(x) \geq 0 \forall x \in \partial \mathcal{C}$ <br>
 
-In the region the function $h(x)$ can evolve in any way, but as long as it reaches the boundary of $h$, 
-the $\dot{h}$ indicates that $h$ should increase again. 
-In fact, the set $\mathcal{C}$ contains all the states where $h(x) \geq 0$.
-
-If you can find such a function $h(x)$, then the set $\mathcal{C}$ will always be invariant for the system dynamics.
- 
+If the condition holds, $\mathcal{C}$ is <em>forward invariant</em>: 
+once inside, the system will always remain inside the safe region.
 </p>
 
 {{< /col >}}
@@ -248,8 +240,7 @@ If you can find such a function $h(x)$, then the set $\mathcal{C}$ will always b
 
 <div class="r-stack">
   <img
-    class="fragment current-visible"
-    data-fragment-index="0"
+    class="current-visible"
     src="images/nagumo-invariance02.png"
   />
   <img

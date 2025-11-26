@@ -115,7 +115,7 @@ It relies on predefined control actions based on a model of the system.
 
 {{% /col %}}
 {{% col %}}
-#### Closed-Loop Control
+#### Feedback / Closed-Loop Control
 
 The control input is *continuously adjusted* based on the current state of the system. \
 It uses feedback from the system to correct deviations from the desired state.
@@ -269,12 +269,11 @@ where:
 - $f: \mathbb{R}^n \to \mathbb{R}^n$ is the *drift vector field* (the natural evolution of the system without control),
 - $g: \mathbb{R}^n \to \mathbb{R}^{n \times m}$ is the *control input matrix* (how the control input affects the system).
 
-<img alt="Control-Affine System" class="fragment" data-fragment-index=0 src="./images/closed-loop-function.png" width="40%"/>
+<img class="fragment" data-fragment-index=0 src="./images/closed-loop-function.png" width="40%"/>
 
 ---
 
 # Preliminaries: **Lie Derivatives**
-
 
 The *Lie Derivative* of a differential scalar function $h: \mathbb{R}^n \to \mathbb{R}$ along a vector field $f: \mathbb{R}^n \to \mathbb{R}^n$ is defined as:
 
@@ -300,11 +299,6 @@ where:
 
 # Control **Lyapunov** Functions (CLF)
 
-
-{{% multicol %}}
-
-{{% col %}}
-
 A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ \
 is a *Control Lyapunov Function* for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:
 1. $V(x) = 0$ for all $x \in \mathcal{X}_d$ and $V(x) > 0$ for all $x \notin \mathcal{X}_d$ (positive definiteness);
@@ -312,26 +306,19 @@ is a *Control Lyapunov Function* for the target set $\mathcal{X}_d \subseteq \ma
 
 $L_f V(x) + L_g V(x) u \leq -cV(x)$
 
-{{% /col %}}
+{{% spacer %}}
 
-{{% col %}}
+This condition ensures that $V(x(t))$ keeps decreasing over time, so the state $x(t)$ moves closer and closer to the desired target set $\mathcal{X}_d$.
 
-This condition guarantees that $V(x(t))$ decreases along trajectories, so $x(t)$ converges to the target set $\mathcal{X}_d$.
-
-It ensures that the system can be driven towards the equilibrium point $x = 0$, \
-thus the existence of a CLF implies that the system is *stabilizable*. 
-
-[//]: # (CLFs are used to design feedback control laws that ensure the system's stability.)
-
-{{% /col %}}
-
-{{% /multicol %}}
+In practice, this means we can drive the system toward its equilibrium, 
+proving that the system is stabilizable through feedback control.
 
 <div>
 <small style="text-align: left">
 * The constant $c > 0$ determines the rate of convergence; larger values lead to faster convergence.
 </small>
 </div>
+
 
 ---
 

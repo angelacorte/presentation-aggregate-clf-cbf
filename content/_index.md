@@ -437,7 +437,12 @@ Nice question, next.
 
 # How to **integrate** CLF and CBF in AC?
 
-
+- Use AC to define the desired collective behavior and objectives, as usual;
+- Collect neighbor information and local states at each device;
+- Formulate local CLF and CBF conditions based on the collective objectives and safety requirements;
+- At each device, solve a local QP that incorporates the CLF and CBF constraints to compute the control input;
+- Apply the computed control input to the device's actuators;
+- Broadcast the control input and state information to neighbors for the next round of computationl.
 
 ---
 
@@ -480,6 +485,7 @@ Formal mechanism to guarantee safety properties, e.g.:
 
 # Suggestions?
 
+[//]: # (![Drones avoiding obstacle while keeping formation]&#40;./images/drones_avoiding_formation.png&#41;)
 
 <!--
 In control theory,

@@ -26,7 +26,7 @@ enable = true
 
 # Current approach
 
-![Drones avoiding an obstacle](./images/drones_formation.png)
+<img alt="Drones avoiding an obstacle" src="images/drones_formation.png" width="75%"/>
 
 {{% fragment %}}
 Potential issues:
@@ -54,7 +54,7 @@ Potential issues on the transient behavior
 
 # Possible consequences of losing the formation
 
-![Drones losing connection](images/drones_changing-formation.png)
+<img alt="Drones losing connection" src="images/drones_changing-formation.png" width="68%"/>
 
 - Lost connection
 - New leaders

@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/_.min.97d11dba4117a5e8a05b44747eade87a8317dc344f4ac47637c44dbd6e9e3b58.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
+  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/css/custom-theme.min.97d11dba4117a5e8a05b44747eade87a8317dc344f4ac47637c44dbd6e9e3b58.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -274,20 +274,30 @@ driving $p$ towards $p_d$ and stabilizing the system at the desired point.</p>
 <h1 id="control-barrier-functions-cbf">Control <strong>Barrier</strong> Functions (CBF)</h1>
 <p>A continuously differentiable function $h: \mathbb{R}^n \to \mathbb{R}$ is a <em>Control Barrier Function</em> for the safe set</p>
 <p>
-$\mathcal{C} = \{ x \in \mathbb{R}^n \mid h(x) \geq 0 \}$
+$\mathcal{C} = \{ x \mid h(x) \geq 0 \}$
 </p>
 <p>We want $\mathcal{C}$ to be forward invariant, i.e., if the system starts or enters in $\mathcal{C}$, it remains in $\mathcal{C}$ for all future time.</p>
-<p>$h$ is a CBF if:</p>
-<ol>
-<li>$h(x) &gt; 0$ for all $x$ in the interior of $\mathcal{C}$, $h(x) = 0$ for all $x$ on the boundary of $\mathcal{C}$, and $h(x) &lt; 0$ for all $x$ outside $\mathcal{C}$ (set definition);</li>
-<li>For all $x$ in $\mathcal{C}$, there exists a control input $u \in \mathcal{U}$ such that for some constant $k &gt; 0$ *:</li>
-<li>$L_f h(x) + L_g h(x) u \geq -k h(x)$</li>
-</ol>
+<p>Given that:
+an <em>extended class-$\mathcal{K}$</em> function is a continuous, strictly increasing function <br>
+defined on an interval including negative values, with $\alpha(0) = 0$.</p>
+<p>And that the ‘‘zeroing’’ CBF condition requires an $\alpha \in \mathcal{K}_e$ such that $\forall x \in \mathcal{D} \supset \mathcal{C} \rightarrow \exists u \in \mathcal{U}$ with:</p>
+<p>$L_f h(x) + L_g h(x) u + \alpha(h(x)) \geq 0$</p>
+<p>This condition ensures &nbsp;&nbsp;
+$\dot{h}(x,u) \geq - \alpha(h(x))$&nbsp;&nbsp;
+which implies forward invariance of $\mathcal{C}$, <br>
+preventing the system from entering unsafe regions.</p>
+</section><section>
+<h1 id="cbf-example-collision-avoidance">CBF Example: collision avoidance</h1>
+<p>For two agents $i, j$ with positions $p_i, p_j \in \mathbb{R}^d$, we define:</p>
+<p>$h_{ij}(p) = || p_i - p_j ||^2 - D^2$ &nbsp;&nbsp; where $D$ is the minimum safe distance between them.</p>
+<p>The safe set is then:</p>
 <p>
-
-</p><div style="margin-top: 4rem;"></div>
-This condition ensures that the system’s state remains within the safe set $\mathcal{C}$ over time,
-preventing it from entering unsafe regions.<p></p>
+$\mathcal{C}_{ij} = \{ p \mid h_{ij}(p) \geq 0 \}$
+</p>
+<p>Then we’ll compute the Lie Derivatives of $h_{ij}$ along $f$ and $g$ respectively:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;$L_f h_{ij}(p) = 0$, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$L_g h_{ij}(p)[u_i;u_j] = 2(p_i - p_j)^\top(u_i-u_j)$</p>
+<p>To ensure collision avoidance, we need to find control inputs $u_i, u_j$ such that: <br>
+$2(p_i - p_j)^\top(u_i-u_j) + \alpha(h_{ij}(p)) \geq 0$</p>
 </section><section>
 <h1 id="clf-cbf-quadratic-program">CLF-CBF-<strong>Quadratic Program</strong></h1>
 </section><section>
@@ -359,7 +369,7 @@ potrebbe anche succedere che si scollega la connessione tra di loro e ognuno vad
 
 <a href="/presentation-aggregate-clf-cbf/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
 
-<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme-light.scss","custom_theme_compile":true,"height":"1080","highlight_theme":"solarized-dark","history":true,"mermaid":[{}],"slide_number":true,"theme":"league","transition":"slide","transition_speed":"fast","width":"1920"}</script>
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"1080","highlight_theme":"solarized-dark","history":true,"mermaid":[{}],"slide_number":true,"theme":"league","transition":"slide","transition_speed":"fast","width":"1920"}</script>
 <script type="application/json" id="reveal-hugo-page-params">{"katex":{"enable":true}}</script>
 
 <script src="/presentation-aggregate-clf-cbf/reveal-js/dist/reveal.js"></script>

@@ -5,9 +5,6 @@ description = "Presentation slides for talk on CLF and CBF in Aggregate Computin
 outputs = ["Reveal"]
 [params.reveal_hugo.katex]
 enable = true
-[params.reveal_hugo]
-custom_theme = "custom-theme-light.scss"
-custom_theme_compile = true
 
 +++
 

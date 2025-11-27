@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/css/custom-theme.min.97d11dba4117a5e8a05b44747eade87a8317dc344f4ac47637c44dbd6e9e3b58.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
+  <link rel="stylesheet" href="/presentation-aggregate-clf-cbf/css/custom-theme.min.7a78e72caf125914da655d67844d418e9128faf357e483d92f54dc1c973079b1.css" id="theme"><link rel="stylesheet" href="/presentation-aggregate-clf-cbf/highlight-js/solarized-dark.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -121,7 +121,7 @@ $\dot{x} = f(x)$</p>
 <p>Starting from an initial state $x_0$,
 there exist some trajectory from there, and we want to verify whether the system converges to a desired equilibrium point $x_e$.</p>
 </div>
-<div style="text-align: justify" class="col "><p><img src="./images/trajectory-function.png" alt="trajectory"></p>
+<div style="text-align: justify" class="col "><p><img src="./images/lyapunov-trajectory.png" alt="trajectory"></p>
 </div>
 </div>
 </div>
@@ -157,9 +157,14 @@ If you start within that set, your trajectory will remain inside it for all futu
 <div style="text-align: justify" class="col ">
 
 <div class="r-stack">
-  <img class="current-visible" src="images/trajectory-function02.png">
-  <img class="fragment current-visible" data-fragment-index="1" src="images/trajectory-function03.png">
-    <img class="fragment current-visible" data-fragment-index="2" src="images/lyapunov-function.png">
+  <!-- First image: visible when the slide loads, then fades out when the first fragment step is triggered -->
+  <img class="fragment fade-out" data-fragment-index="0" src="images/trajectory-function02.png">
+
+  <!-- Second image: hidden at first, appears exactly when the first image fades out -->
+  <img class="fragment current-visible" data-fragment-index="0" src="images/trajectory-function03.png">
+
+  <!-- Third image: appears on the next fragment step -->
+  <img class="fragment" data-fragment-index="1" src="images/lyapunov-function.png">
 </div>
 
 </div>
@@ -168,7 +173,7 @@ If you start within that set, your trajectory will remain inside it for all futu
 </section><section>
 <h1 id="preliminaries-nagumo">Preliminaries: <strong>Nagumo’s Invariance Theorem</strong></h1>
 <p>Given a different function $\dot{x} = f(x)$ and a different trajectory:</p>
-<img alt="trajectory" src="./images/nagumo-invariance.png" width="30%">
+<img alt="trajectory" src="./images/nagumo-trajectory.png" width="30%">
 <p>Our goal is to ensure that the trajectory remains within a region of interest.</p>
 </section><section>
 <h1 id="preliminaries-nagumo-1">Preliminaries: <strong>Nagumo’s Invariance Theorem</strong></h1>
@@ -254,7 +259,7 @@ proving that the system is stabilizable through feedback control.</p>
 </small>
 </div>
 </section><section>
-<h1 id="clf-example-point-stabilization">CLF Example: point stabilization</h1>
+<h1 id="clf-example-point-stabilization"><strong>CLF Example</strong>: point stabilization</h1>
 <p>For a system &nbsp;&nbsp;$\dot{p} = u$&nbsp;&nbsp;
 where we want to stabilize the position $p$ of a point at a desired location $p_d$.</p>
 <p>We want to design a control input $u$ that drives $p$ towards $p_d$.</p>
@@ -287,7 +292,7 @@ $\dot{h}(x,u) \geq - \alpha(h(x))$&nbsp;&nbsp;
 which implies forward invariance of $\mathcal{C}$, <br>
 preventing the system from entering unsafe regions.</p>
 </section><section>
-<h1 id="cbf-example-collision-avoidance">CBF Example: collision avoidance</h1>
+<h1 id="cbf-example-collision-avoidance"><strong>CBF Example</strong>: collision avoidance</h1>
 <p>For two agents $i, j$ with positions $p_i, p_j \in \mathbb{R}^d$, we define:</p>
 <p>$h_{ij}(p) = || p_i - p_j ||^2 - D^2$ &nbsp;&nbsp; where $D$ is the minimum safe distance between them.</p>
 <p>
@@ -300,7 +305,7 @@ $2(p_i - p_j)^\top(u_i-u_j) + \alpha(h_{ij}(p)) \geq 0$</p>
 </section><section>
 <h1 id="clf-cbf-quadratic-program">CLF-CBF-<strong>Quadratic Program</strong></h1>
 <p>To get a control input that satisfies both CLF and CBF conditions,
-in order to enforce both stability and safety,
+in order to enforce both stability and safety, <br>
 we can use them as constraints in a quadratic optimization problem.</p>
 <p>$\underset{u,s \ge 0}{\min} || u - u_{des} || + ws^2$</p>
 <p>$s.t. \quad L_f V(x) + L_g V(x)u \leq -c V(x) + s$,</p>
@@ -316,14 +321,43 @@ we can use them as constraints in a quadratic optimization problem.</p>
 <p><em>The QP is solved at each time step to compute the control input $u$ that balances stability and safety, <br>
 while minimizing deviation from the desired input.</em></p>
 </section><section>
-<h1 id="research-questions">Research question(s)</h1>
+<h1 id="research-questions">Research question(<strong>s</strong>)</h1>
 <ul>
 <li>How to integrate CLF and CBF in Aggregate Computing?</li>
-<li>How to specify safety-critical requirements both at the single and the collective level?</li>
+<li>How to specify safety-critical requirements both at the <em>single</em> and the <em>collective</em> level?</li>
 <li>How to enforce safety and stability guarantees during the transient behavior of distributed adaptive systems?</li>
 </ul>
 </section><section>
-<h1 id="how-to-integrate-clf-and-cbf-in-aggregate-computing">How to integrate CLF and CBF in Aggregate Computing?</h1>
+<h1 id="how-to-integrate-clf-and-cbf-in-ac">How to <strong>integrate</strong> CLF and CBF in AC?</h1>
+
+
+<span class="fragment ">
+  <p>Nice question, next.</p>
+
+</span>
+
+</section><section>
+<h1 id="how-to-integrate-clf-and-cbf-in-ac-1">How to <strong>integrate</strong> CLF and CBF in AC?</h1>
+</section><section>
+<h1 id="overview">Overview</h1>
+
+<div class="container w-100 m-0 p-0">
+    <div class="row "><div style="text-align: justify" class="col "><h3 id="benefits-of-the-integration">Benefits of the integration</h3>
+<ul>
+<li>Formal specification of safety and stability requirements at the collective level.</li>
+<li>Making safety-critical guarantees an integral part of the Aggregate Computing model.</li>
+<li>Safety and convergence are enforced by QP solvers at each device, ensuring local adherence to global requirements.</li>
+<li>Possible guarantees on transient behavior, not only eventual consistency.</li>
+</ul>
+</div>
+<div style="text-align: justify" class="col fragment"><h3 id="possible-challenges-limitations">Possible challenges-limitations</h3>
+<ul>
+<li>Computational overhead of solving QPs on resource-constrained devices.</li>
+<li>Asynchrony and communication delays must be considered in the control design.</li>
+</ul>
+</div>
+</div>
+</div>
 </section><section>
 <h1 id="aggregate-computing--clf--cbf-use-cases">Aggregate Computing + CLF + CBF use cases</h1>
 <p>Formal mechanism to guarantee safety properties, e.g.:</p>
@@ -335,6 +369,8 @@ while minimizing deviation from the desired input.</em></p>
 <li>Maintaining sufficient network connectivity;</li>
 <li>Respecting density limits in regions of interest.</li>
 </ul>
+</section><section>
+<h1 id="suggestions">Suggestions?</h1>
 <!--
 In control theory,
 there exist formal methods that allow us to specify conditions for both achieving a desired objective (stability) and

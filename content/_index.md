@@ -152,7 +152,7 @@ there exist some trajectory from there, and we want to verify whether the system
 {{% /col %}}
 {{% col %}}
 
-![trajectory](./images/trajectory-function.png)
+![trajectory](./images/lyapunov-trajectory.png)
 
 {{% /col %}}
 {{% /multicol %}}
@@ -185,18 +185,24 @@ If you start within that set, your trajectory will remain inside it for all futu
 {{< col >}}
 
 <div class="r-stack">
+  <!-- First image: visible when the slide loads, then fades out when the first fragment step is triggered -->
   <img
-    class="current-visible"
+    class="fragment fade-out"
+    data-fragment-index="0"
     src="images/trajectory-function02.png"
   />
+
+  <!-- Second image: hidden at first, appears exactly when the first image fades out -->
   <img
     class="fragment current-visible"
-    data-fragment-index="1"
+    data-fragment-index="0"
     src="images/trajectory-function03.png"
   />
-    <img
-    class="fragment current-visible"
-    data-fragment-index="2"
+
+  <!-- Third image: appears on the next fragment step -->
+  <img
+    class="fragment"
+    data-fragment-index="1"
     src="images/lyapunov-function.png"
   />
 </div>
@@ -210,7 +216,7 @@ If you start within that set, your trajectory will remain inside it for all futu
 
 Given a different function $\dot{x} = f(x)$ and a different trajectory:
 
-<img alt="trajectory" src="./images/nagumo-invariance.png" width="30%"/>
+<img alt="trajectory" src="./images/nagumo-trajectory.png" width="30%"/>
 
 Our goal is to ensure that the trajectory remains within a region of interest.
 
@@ -415,12 +421,12 @@ while minimizing deviation from the desired input.*
 # Research question(**s**)
 
 - How to integrate CLF and CBF in Aggregate Computing?
-- How to specify safety-critical requirements both at the single and the collective level?
+- How to specify safety-critical requirements both at the *single* and the *collective* level?
 - How to enforce safety and stability guarantees during the transient behavior of distributed adaptive systems?
 
 ---
 
-# How to **integrate** CLF and CBF in Aggregate Computing?
+# How to **integrate** CLF and CBF in AC?
 
 
 {{% fragment %}}
@@ -429,7 +435,7 @@ Nice question, next.
 
 ---
 
-# How to **integrate** CLF and CBF in Aggregate Computing?
+# How to **integrate** CLF and CBF in AC?
 
 
 

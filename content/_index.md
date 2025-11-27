@@ -366,6 +366,27 @@ preventing the system from entering unsafe regions.
 
 ---
 
+# CBF Example: collision avoidance
+
+For two agents $i, j$ with positions $p_i, p_j \in \mathbb{R}^d$, we define: 
+
+
+$h_{ij}(p) = \|\| p_i - p_j \|\|^2 - D^2$ {{< tab times="2">}} where $D$ is the minimum safe distance between them.
+
+The safe set is then:
+<p>
+$\mathcal{C}_{ij} = \{ p \mid h_{ij}(p) \geq 0 \}$
+</p>
+
+Then we'll compute the Lie Derivatives of $h_{ij}$ along $f$ and $g$ respectively:
+
+{{< tab >}}$L_f h_{ij}(p) = 0$, {{< tab times="8">}}$L_g h_{ij}(p)[u_i;u_j] = 2(p_i - p_j)^\top(u_i-u_j)$
+
+To ensure collision avoidance, we need to find control inputs $u_i, u_j$ such that: \
+$2(p_i - p_j)^\top(u_i-u_j) + \alpha(h_{ij}(p)) \geq 0$
+
+---
+
 # CLF-CBF-**Quadratic Program**
 
 ---

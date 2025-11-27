@@ -373,9 +373,9 @@ For two agents $i, j$ with positions $p_i, p_j \in \mathbb{R}^d$, we define:
 
 $h_{ij}(p) = \|\| p_i - p_j \|\|^2 - D^2$ {{< tab times="2">}} where $D$ is the minimum safe distance between them.
 
-The safe set is then:
+
 <p>
-$\mathcal{C}_{ij} = \{ p \mid h_{ij}(p) \geq 0 \}$
+The safe set is: {{< tab >}} $\mathcal{C}_{ij} = \{ p \mid h_{ij}(p) \geq 0 \}$
 </p>
 
 Then we'll compute the Lie Derivatives of $h_{ij}$ along $f$ and $g$ respectively:
@@ -388,6 +388,27 @@ $2(p_i - p_j)^\top(u_i-u_j) + \alpha(h_{ij}(p)) \geq 0$
 ---
 
 # CLF-CBF-**Quadratic Program**
+
+To get a control input that satisfies both CLF and CBF conditions,
+in order to enforce both stability and safety,
+we can use them as constraints in a quadratic optimization problem.
+
+$\underset{u,s \ge 0}{\min} \|\| u - u_{des} \|\| + ws^2$
+
+$s.t. \quad L_f V(x) + L_g V(x)u \leq -c V(x) + s$,
+
+$L_f h_\ell(x) + L_g h_\ell(x) u + \alpha(h_\ell(x)) \ge 0 \quad \forall \ell$
+
+Where:
+- $u_{des}$ is a desired control input in the absence of constraints;
+- $s$ is a slack variable to relax the CLF constraint when necessary (to prioritize safety);
+- $w$ is a weight to penalize the slack variable;
+- $\ell$ indexes multiple CBF constraints.
+
+The CLF is softened to ensure feasibility, while CBFs are enforced strictly to guarantee safety.
+
+*The QP is solved at each time step to compute the control input $u$ that balances stability and safety, \
+while minimizing deviation from the desired input.*
 
 ---
 

@@ -338,6 +338,14 @@ while minimizing deviation from the desired input.</em></p>
 
 </section><section>
 <h1 id="how-to-integrate-clf-and-cbf-in-ac-1">How to <strong>integrate</strong> CLF and CBF in AC?</h1>
+<ul>
+<li>Use AC to define the desired collective behavior and objectives, as usual;</li>
+<li>Collect neighbor information and local states at each device;</li>
+<li>Formulate local CLF and CBF conditions based on the collective objectives and safety requirements;</li>
+<li>At each device, solve a local QP that incorporates the CLF and CBF constraints to compute the control input;</li>
+<li>Apply the computed control input to the device’s actuators;</li>
+<li>Broadcast the control input and state information to neighbors for the next round of computationl.</li>
+</ul>
 </section><section>
 <h1 id="overview">Overview</h1>
 

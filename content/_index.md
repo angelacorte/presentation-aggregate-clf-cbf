@@ -471,9 +471,9 @@ Nice question, next.
 
 ---
 
-# Aggregate Computing + CLF + CBF use cases
+# Aggregate Computing + CLF + CBF **use cases**
 
-Formal mechanism to guarantee safety properties, e.g.:
+Guarantees on transient behavior in safety-critical scenarios, e.g.:
 - Obstacle avoidance while maintaining formation;
 - Collision avoidance between agents;
 - Safe navigation in dynamic environments;

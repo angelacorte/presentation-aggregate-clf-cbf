@@ -318,7 +318,7 @@ proving that the system is stabilizable through feedback control.
 
 ---
 
-# CLF Example: point stabilization
+# **CLF Example**: point stabilization
 
 For a system {{< tab times="2">}}$\dot{p} = u${{< tab times="2">}}
 where we want to stabilize the position $p$ of a point at a desired location $p_d$.
@@ -366,7 +366,7 @@ preventing the system from entering unsafe regions.
 
 ---
 
-# CBF Example: collision avoidance
+# **CBF Example**: collision avoidance
 
 For two agents $i, j$ with positions $p_i, p_j \in \mathbb{R}^d$, we define: 
 
@@ -412,7 +412,7 @@ while minimizing deviation from the desired input.*
 
 ---
 
-# Research question(s)
+# Research question(**s**)
 
 - How to integrate CLF and CBF in Aggregate Computing?
 - How to specify safety-critical requirements both at the single and the collective level?
@@ -420,10 +420,22 @@ while minimizing deviation from the desired input.*
 
 ---
 
-# How to integrate CLF and CBF in Aggregate Computing?
+# How to **integrate** CLF and CBF in Aggregate Computing?
+
+
+{{% fragment %}}
+Nice question, next.
+{{% /fragment %}}
+
+---
+
+# How to **integrate** CLF and CBF in Aggregate Computing?
+
 
 
 ---
+
+# Overview
 
 {{% multicol %}}
 {{% col %}}
@@ -433,6 +445,7 @@ while minimizing deviation from the desired input.*
 - Formal specification of safety and stability requirements at the collective level.
 - Making safety-critical guarantees an integral part of the Aggregate Computing model.
 - Safety and convergence are enforced by QP solvers at each device, ensuring local adherence to global requirements.
+- Possible guarantees on transient behavior, not only eventual consistency.
 
 {{% /col %}}
 {{% col class="fragment" %}}
@@ -456,6 +469,11 @@ Formal mechanism to guarantee safety properties, e.g.:
 - Staying inside a designated area;
 - Maintaining sufficient network connectivity;
 - Respecting density limits in regions of interest.
+
+---
+
+# Suggestions?
+
 
 <!--
 In control theory,

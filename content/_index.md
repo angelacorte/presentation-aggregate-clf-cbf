@@ -390,7 +390,7 @@ $2(p_i - p_j)^\top(u_i-u_j) + \alpha(h_{ij}(p)) \geq 0$
 # CLF-CBF-**Quadratic Program**
 
 To get a control input that satisfies both CLF and CBF conditions,
-in order to enforce both stability and safety,
+in order to enforce both stability and safety, \
 we can use them as constraints in a quadratic optimization problem.
 
 $\underset{u,s \ge 0}{\min} \|\| u - u_{des} \|\| + ws^2$
@@ -422,6 +422,28 @@ while minimizing deviation from the desired input.*
 
 # How to integrate CLF and CBF in Aggregate Computing?
 
+
+---
+
+{{% multicol %}}
+{{% col %}}
+
+### Benefits of the integration
+
+- Formal specification of safety and stability requirements at the collective level.
+- Making safety-critical guarantees an integral part of the Aggregate Computing model.
+- Safety and convergence are enforced by QP solvers at each device, ensuring local adherence to global requirements.
+
+{{% /col %}}
+{{% col class="fragment" %}}
+
+### Possible challenges-limitations
+
+- Computational overhead of solving QPs on resource-constrained devices.
+- Asynchrony and communication delays must be considered in the control design.
+
+{{% /col %}}
+{{% /multicol %}}
 
 ---
 

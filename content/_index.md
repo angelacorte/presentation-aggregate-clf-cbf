@@ -29,16 +29,15 @@ enable = true
 <img alt="Drones avoiding an obstacle" src="images/drones_formation.png" width="75%"/>
 
 {{% fragment %}}
-Potential issues:
-- *eventual* consistency;
-- loss of formation.
+Potential issue:
+consistency is only *eventual*.
 {{% /fragment %}}
 
 ---
 
 # Eventual consistency
 
-How much time will it take to re-form the formation?
+How long will it take to re-form the formation?
 
 ![Drones losing formation](./images/drones_eventual_consistency.png)
 
@@ -164,48 +163,25 @@ there exist some trajectory from there, and we want to verify whether the system
 {{< multicol >}}
 {{< col class="col-7">}}
 
-If we can devise a Lyapunov function $V(x)$ that satisfies: 
+Given a function $V(x)$, we define it <em>Lyapunov function</em> if every positive level set of the function is an <em>invariant set</em>
+{{< tab times="3">}}$\Omega = \left\{ x \mid V(x) \le c \right\}$ 
+→ If you start within that set, your trajectory will remain inside it for all future time.</br>
+
+The evolution of the function over time decreases towards $x_e$,
+implying that the system is stable and will converge to the desired equilibrium point.
+
+{{< spacer >}}
+
+$V(x)$ is a Lyapunov Function if satisfies: 
 <ul>
     <li>$s.t. V(x_e) = 0, V(x) > 0 for x \neq x_e$,</li>
     <li>$\dot{V}(x) = \frac{\partial V}{\partial x} f(x) < 0$ for $x \neq x_e$,</li>
 </ul>
 
-<p class="fragment" data-fragment-index="1">
-The evolution of the Lyapunov function over time will decrease towards $x_e$. </br>
-This implies that the system is stable and will converge to the desired equilibrium point.
-</p>
-
-<p class="fragment" data-fragment-index="2">
-Every positive level set of the Lyapunov function is an <em>invariant set</em>
-{{< tab times="3">}}$\Omega = \left\{ x \mid V(x) \le c \right\}$. </br>
-If you start within that set, your trajectory will remain inside it for all future time.
-</p>
-
 {{< /col >}}
 {{< col >}}
 
-<div class="r-stack">
-  <!-- First image: visible when the slide loads, then fades out when the first fragment step is triggered -->
-  <img
-    class="fragment fade-out"
-    data-fragment-index="0"
-    src="images/trajectory-function02.png"
-  />
-
-  <!-- Second image: hidden at first, appears exactly when the first image fades out -->
-  <img
-    class="fragment current-visible"
-    data-fragment-index="0"
-    src="images/trajectory-function03.png"
-  />
-
-  <!-- Third image: appears on the next fragment step -->
-  <img
-    class="fragment"
-    data-fragment-index="1"
-    src="images/lyapunov-function.png"
-  />
-</div>
+<img src="images/lyapunov-function.png"/>
 
 {{< /col >}}
 {{< /multicol >}}
@@ -227,33 +203,22 @@ Our goal is to ensure that the trajectory remains within a region of interest.
 {{< multicol >}}
 {{< col class="col-7">}}
 
-Given a function $h(x)$, the safe region (space of states we want to remain in) is:
-<p>
-$\mathcal{C} = \{ x \mid h(x) \geq 0 \}$ → <em>super zero level set of $h$</em>
-</p>
+Given a function $h(x)$, we can define a <em>safe set</em> as:
+{{< tab times="3">}}$\mathcal{C} = \left\{ x \mid h(x) \ge 0 \right\}$ </br>
+→ the set of states where the system is considered safe, also called <em>super zero level set</em> of $h$.
 
-<p class="fragment" data-fragment-index="1">
+{{< spacer >}}
+
 To guarantee that trajectories never leave $\mathcal{C}$ (safety), it is enough to ensure that, on its boundary: <br>
-$\dot{h}(x) \geq 0 \forall x \in \partial \mathcal{C}$ <br>
+$\dot{h}(x) \geq 0 \; \forall x \in \partial \mathcal{C}$ <br>
 
 If the condition holds, $\mathcal{C}$ is <em>forward invariant</em>: 
 once inside, the system will always remain inside the safe region.
-</p>
 
 {{< /col >}}
 {{< col >}}
 
-<div class="r-stack">
-  <img
-    class="current-visible"
-    src="images/nagumo-invariance02.png"
-  />
-  <img
-    class="fragment current-visible"
-    data-fragment-index="1"
-    src="images/nagumo-invariance03.png"
-  />
-</div>
+<img src="images/nagumo-invariance03.png"/>
 
 {{< /col >}}
 {{< /multicol >}}
@@ -272,17 +237,16 @@ where:
 - $f: \mathbb{R}^n \to \mathbb{R}^n$ is the *drift vector field* (the natural evolution of the system without control),
 - $g: \mathbb{R}^n \to \mathbb{R}^{n \times m}$ is the *control input matrix* (how the control input affects the system).
 
-<img class="fragment" data-fragment-index=0 src="./images/closed-loop-function.png" width="40%"/>
+<img src="./images/closed-loop-function.png" width="40%"/>
 
 ---
 
 # Preliminaries: **Lie Derivatives**
 
-The *Lie Derivative* of a differential scalar function $h: \mathbb{R}^n \to \mathbb{R}$ along a vector field $f: \mathbb{R}^n \to \mathbb{R}^n$ is defined as:
+The *Lie Derivative* represents how a scalar function $h(x)$ changes in time as the state evolves, </br> 
+according to the system dynamics along a vector field $f: \mathbb{R}^n \to \mathbb{R}^n$.
 
-$L_f h(x) = \frac{\partial h}{\partial x} f(x) = \nabla h(x) \cdot f(x)$
-
-It represents how $h(x)$ changes in time as the state evolves according to the system dynamics.
+It is represented as $L_f h(x)$
 
 <div class="fragment" style="margin-top: 5rem;">
 
@@ -302,20 +266,19 @@ where:
 
 # Control **Lyapunov** Functions (CLF)
 
-A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$ \
-is a *Control Lyapunov Function* for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:
-1. $V(x) = 0$ for all $x \in \mathcal{X}_d$ and $V(x) > 0$ for all $x \notin \mathcal{X}_d$ (positive definiteness);
-2. For all $x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ such that for some constant $c > 0$ *:
+A *Control Lyapunov Function* (CLF) is a scalar function that measures how "far" the system's state is from a desired target set $\mathcal{X}_d$.
 
-$L_f V(x) + L_g V(x) u \leq -cV(x)$
+If we can design such a function so that it always decreases along the trajectories of the system, \
+then the state is driven towards $\mathcal{X}_d$ and the system can be stabilized by a suitable feedback control.
 
 {{% spacer %}}
 
-This condition ensures that $V(x(t))$ keeps decreasing over time, so the state $x(t)$ moves closer and closer to the desired target set $\mathcal{X}_d$.
+A continuously differentiable function $V: \mathbb{R}^n \to \mathbb{R}_{\geq 0}$
+is a *CLF* for the target set $\mathcal{X}_d \subseteq \mathbb{R}^n$ if:
+1. $V(x) = 0 \quad \forall x \in \mathcal{X}_d$ and $V(x) > 0 \quad \forall x \notin \mathcal{X}_d$ (positive definiteness);
+2. $\forall x \notin \mathcal{X}_d$, there exists a control input $u \in \mathcal{U}$ and a constant $c > 0$ * such that:
 
-In practice, this means we can drive the system toward its equilibrium, 
-proving that the system is stabilizable through feedback control.
-
+$L_f V(x) + L_g V(x) u \leq -cV(x)$
 <div>
 <small style="text-align: left">
 * The constant $c > 0$ determines the rate of convergence; larger values lead to faster convergence.
@@ -350,25 +313,23 @@ driving $p$ towards $p_d$ and stabilizing the system at the desired point.
 
 # Control **Barrier** Functions (CBF)
 
-A continuously differentiable function $h: \mathbb{R}^n \to \mathbb{R}$ is a *Control Barrier Function* for the safe set 
+A *Control Barrier Function* (CBF) is a scalar function that defines a *safe set* $\mathcal{C}$\
+within which the system's state must remain to ensure safety.
+
+We want $\mathcal{C}$ to be forward invariant, i.e., if the system starts or enters in $\mathcal{C}$, it remains in $\mathcal{C}$ for all future time.
+
+A continuously differentiable function $h: \mathbb{R}^n \to \mathbb{R}$ is a *CBF* for
 <p>
 $\mathcal{C} = \{ x \mid h(x) \geq 0 \}$
 </p>
 
-We want $\mathcal{C}$ to be forward invariant, i.e., if the system starts or enters in $\mathcal{C}$, it remains in $\mathcal{C}$ for all future time.
+Let $\alpha$ be an extended *class-$\mathcal{K}$* function (continuous, strictly increasing, $\alpha(0)=0$).\
+$\alpha$ acts like a safety buffer: it limits how fast $h(x)$ can decrease, \
+so once the system is in the safe region, it is prevented from crossing the safety boundary.
 
-Given that:
-an *extended class-$\mathcal{K}$* function is a continuous, strictly increasing function \
-defined on an interval including negative values, with $\alpha(0) = 0$.
-
-And that the ''zeroing'' CBF condition requires an $\alpha \in \mathcal{K}_e$ such that $\forall x \in \mathcal{D} \supset \mathcal{C} \rightarrow \exists u \in \mathcal{U}$ with:
-
-$L_f h(x) + L_g h(x) u + \alpha(h(x)) \geq 0$
-
-This condition ensures {{< tab times="2">}} 
-$\dot{h}(x,u) \geq - \alpha(h(x))${{< tab times="2">}}
-which implies forward invariance of $\mathcal{C}$, \
-preventing the system from entering unsafe regions.
+Thus, if there exists $u \in \mathcal{U}$ such that:\
+$L_f h(x) + L_g h(x) u + \alpha(h(x)) \ge 0 \quad \forall x \in \mathcal{D} \supset \mathcal{C}$.\
+Then $\dot{h}(x,u) \ge -\alpha(h(x))$
 
 ---
 
@@ -376,9 +337,7 @@ preventing the system from entering unsafe regions.
 
 For two agents $i, j$ with positions $p_i, p_j \in \mathbb{R}^d$, we define: 
 
-
 $h_{ij}(p) = \|\| p_i - p_j \|\|^2 - D^2$ {{< tab times="2">}} where $D$ is the minimum safe distance between them.
-
 
 <p>
 The safe set is: {{< tab >}} $\mathcal{C}_{ij} = \{ p \mid h_{ij}(p) \geq 0 \}$

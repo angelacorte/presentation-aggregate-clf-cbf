@@ -47,7 +47,7 @@ How long will it take to re-form the formation?
 
 Potential issues on the transient behavior
 
-![eventual consistency](./images/eventual_consistency.mov)
+![eventual consistency](./images/eventual_consistency.mp4)
 
 ---
 

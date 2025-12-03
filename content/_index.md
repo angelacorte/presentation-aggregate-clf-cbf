@@ -387,15 +387,6 @@ while minimizing deviation from the desired input.*
 
 # How to **integrate** CLF and CBF in AC?
 
-
-{{% fragment %}}
-Nice question, next.
-{{% /fragment %}}
-
----
-
-# How to **integrate** CLF and CBF in AC?
-
 - Use AC to define the desired collective behavior and objectives, as usual;
 - Collect neighbor information and local states at each device;
 - Formulate local CLF and CBF conditions based on the collective objectives and safety requirements;

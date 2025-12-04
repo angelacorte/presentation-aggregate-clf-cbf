@@ -71,7 +71,9 @@ Did not lose formation, neither connection, avoided the obstacle safely and keep
 
 # Our goal
 
-Ensure guarantees on the transient behavior of the system, not only on the eventual one.
+{{% spacer %}}
+
+Ensure *guarantees on the transient behavior* of the system, not only on the eventual one.
 
 ---
 
@@ -86,13 +88,13 @@ In control theory, there exist formal methods to specify both stability and safe
 # Preliminaries: **Control Theory**
 
 *Control Theory* is a branch of engineering and mathematics that deals with the behavior of dynamical systems with inputs (*controls*). \
-The main goal is to develop *control strategies* that *modify the system's behavior to achieve a desired state*,
+The main goal is to develop *control strategies* that *modify the system's behavior to achieve a desired state*, \
 while minimizing delays or errors, while ensuring safety and control stability.  
 
 Control can only be applied with respect to the system’s *temporal evolution*.
 
-A *Control Loop* is a feedback-driven mechanism that measures the current state of a system, 
-*compares* it to a desired set-point, 
+A *Control Loop* is a feedback-driven mechanism that measures the current state of a system, \
+*compares* it to a desired set-point, \
 and *automatically adjusts the control input* to minimize the error between the two.
 
 ---

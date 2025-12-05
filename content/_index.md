@@ -184,8 +184,8 @@ implying that the system is stable and will converge to the desired equilibrium 
 
 $V(x)$ is a Lyapunov Function if satisfies: 
 <ul>
-    <li>$s.t. V(x_e) = 0, V(x) > 0 for x \neq x_e$,</li>
-    <li>$\dot{V}(x) = \frac{\partial V}{\partial x} f(x) < 0$ for $x \neq x_e$,</li>
+    <li>$s.t. V(x_e) = 0, V(x) > 0 \quad \forall \quad x \neq x_e$,</li>
+    <li>$\dot{V}(x) = \frac{\partial V}{\partial x} f(x) < 0 \quad \forall \quad x \neq x_e$,</li>
 </ul>
 
 {{< /col >}}

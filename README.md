@@ -39,7 +39,7 @@ This presentation covers the integration of control theory concepts into Aggrega
    hugo serve
    ```
 
-3. The slides will be available at `http://localhost:1313/`.
+3. The slides will be available at `http://localhost:1313/presentation-aggregate-clf-cbf/`.
 
 ## License
 

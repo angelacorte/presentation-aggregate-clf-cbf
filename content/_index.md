@@ -20,7 +20,9 @@ enable = true
 
 # How will the drones avoid the obstacle?
 
-![Drones in formation](./images/drone_formation.svg)
+{{% spacer %}}
+
+<img alt="Drones in formation" src="./images/drone_formation.svg" width="80%"/>
 
 ---
 

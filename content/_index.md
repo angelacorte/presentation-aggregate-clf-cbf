@@ -47,7 +47,15 @@ How long will it take to re-form the formation?
 
 Potential issues on the transient behavior
 
-![eventual consistency](./images/eventual_consistency.mp4)
+<video
+    data-autoplay
+    src="./images/eventual_consistency.mp4"
+    type="video/mp4"
+    loop
+    muted
+    playsinline
+    style="width: 50%;">
+</video>
 
 ---
 

@@ -34,17 +34,12 @@ This presentation covers the integration of control theory concepts into Aggrega
    cd presentation-aggregate-clf-cbf
    ```
 
-2. Run the preprocessor:
+2. Build and serve the slides:
    ```bash
-   shared-slides/preprocess.rb
+   hugo serve
    ```
 
-3. Build the slides:
-   ```bash
-   hugo
-   ```
-
-4. The built slides will be available in the `build/` directory.
+3. The slides will be available at `http://localhost:1313/`.
 
 ## License
 

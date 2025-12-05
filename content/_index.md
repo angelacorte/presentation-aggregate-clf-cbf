@@ -54,7 +54,7 @@ Potential issues on the transient behavior
     loop
     muted
     playsinline
-    style="width: 50%;">
+    style="width: 40%;">
 </video>
 
 ---
